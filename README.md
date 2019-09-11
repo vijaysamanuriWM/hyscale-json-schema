@@ -17,7 +17,7 @@ validate a Hyscale definition.
 Here is a very simply example using the Python [jsonschema client](https://github.com/Julian/jsonschema) and an invalid deployment file:
 
 ```
-$ jsonschema -F "{error.message}" -i tests/hrms-frontend.json v1.0.0-local/deployment.json
+$ jsonschema -F "{error.message}" -i tests/hrms-frontend.json v1.0.0-local/service-spec.json
 
 ```
 

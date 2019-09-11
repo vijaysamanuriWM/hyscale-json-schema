@@ -159,97 +159,95 @@
                 },
                 "httpHeaders": {
                   "additionalProperties": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
+                    "type": [
+                      "string",
+                      "null"
+                    ]
                   },
                   "description": "props is an unstructured key value map",
                   "type": "object"
-                    }
-                  }
                 }
               }
             }
           }
         }
       }
-    },
-    "agents": {
-      "type": "array",
-      "description": "defines sidecars creation and attachment",
-      "items": {
-        "type": "object",
-        "required": [
-          "name",
-          "image",
-          "props",
-          "volumes"
-        ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "defines the name of sidecar",
-            "examples": [
-              "logging-agent"
-            ]
-          },
-          "image": {
-            "type": "string",
-            "description": "sidecar full image name",
-            "examples": [
-              "gcr.io/test/logstash:2.2"
-            ]
-          },
-          "props": {
-            "additionalProperties": {
+    }
+  },
+  "agents": {
+    "type": "array",
+    "description": "defines sidecars creation and attachment",
+    "items": {
+      "type": "object",
+      "required": [
+        "name",
+        "image",
+        "props",
+        "volumes"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "defines the name of sidecar",
+          "examples": [
+            "logging-agent"
+          ]
+        },
+        "image": {
+          "type": "string",
+          "description": "sidecar full image name",
+          "examples": [
+            "gcr.io/test/logstash:2.2"
+          ]
+        },
+        "props": {
+          "additionalProperties": {
             "type": [
               "string",
               "null"
             ]
-           },
-           "description": "props is an unstructured key value map",
-           "type": "object"
           },
-          "volumes": {
-            "type": "array",
-            "description": "defines volumes attachment for sidecar",
-            "items": {
-              "type": "object",
-              "description": "The Items Schema",
-              "required": [
-                "path",
-                "name"
-              ],
-              "properties": {
-                "path": {
-                  "type": "string",
-                  "description": "mount path inside sidecar",
-                  "examples": [
-                    "/usr/local/tomcat/logs"
-                  ]
-                },
-                "name": {
-                  "type": "string",
-                  "description": "volume name can be a shared volume if it matches any of main container volume",
-                  "examples": [
-                    "logs"
-                  ]
-                }
+          "description": "props is an unstructured key value map",
+          "type": "object"
+        },
+        "volumes": {
+          "type": "array",
+          "description": "defines volumes attachment for sidecar",
+          "items": {
+            "type": "object",
+            "description": "The Items Schema",
+            "required": [
+              "path",
+              "name"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "mount path inside sidecar",
+                "examples": [
+                  "/usr/local/tomcat/logs"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "description": "volume name can be a shared volume if it matches any of main container volume",
+                "examples": [
+                  "logs"
+                ]
               }
             }
           }
         }
       }
-    },
-    "profiles": {
-      "type": "array",
-      "description": "list of profiles",
-      "items": {
-        "type": "object",
-        "description": "The Items Schema",
-        "properties": {
-        }
-      }
     }
+  },
+  "profiles": {
+    "type": "array",
+    "description": "list of profiles",
+    "items": {
+      "type": "object",
+      "description": "The Items Schema",
+      "properties": {}
+    }
+  }
 }

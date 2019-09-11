@@ -7,7 +7,7 @@
           "description": "defines buildcontext path",
           "type": "string",
           "default": "./",
-          "examples": [ 
+          "examples": [
             "module1"
           ]
         },
@@ -34,10 +34,9 @@
           "type": "array"
         }
       },
-      "required": [
-      ],
+      "required": [],
       "type": "object"
-     },
+    },
     "io.hyscale.api.image.buildSpec.Artifact": {
       "description": "Describes artifact source and destination inside container.",
       "properties": {
@@ -79,7 +78,7 @@
         "destination"
       ],
       "type": "object"
-    }, 
+    },
     "io.hyscale.api.image.BuildSpec": {
       "description": "Describes buildSpec settings to create container image.",
       "properties": {
@@ -121,8 +120,8 @@
         }
       },
       "required": [
-       "stackImage",
-       "artifacts"
+        "stackImage",
+        "artifacts"
       ],
       "type": "object"
     },
@@ -144,16 +143,14 @@
           "description": "docker registry url along with namespace",
           "type": "string",
           "default": "docker.io/library",
-          "examples" : [ 
-	    "gcr.io/test-hyscale"
+          "examples": [
+            "gcr.io/test-hyscale"
           ]
         },
-        
         "dockerfile": {
           "$ref": "#/definitions/io.hyscale.api.image.Dockerfile",
           "description": "dockerfile describes how to build container image using dockerfile."
         },
- 
         "buildSpec": {
           "$ref": "#/definitions/io.hyscale.api.image.BuildSpec",
           "description": "buildSpec describes what the image should contain like stack, artifact and configuration. It is considered as an alternative to dockerfile spec"
@@ -164,4 +161,5 @@
       ],
       "type": "object"
     }
+  }
 }

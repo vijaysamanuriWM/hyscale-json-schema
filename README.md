@@ -2,6 +2,10 @@
 
 This repository contains a set of json schemas for Hyscale Resources. For each specified Hyscale versions you can find json schemas for hyscale resources.
 
+<a href="https://push-to.cfapps.io?repo=https%3A%2F%2Fgithub.com%2FvijaysamanuriWM%2Fhyscale-json-schema.git">
+    <img src="https://push-to.cfapps.io/ui/assets/images/Push-to-Pivotal-Light-with-Shadow.svg" width="180" alt="Push" align="center">
+</a>
+
 ## Example
 
 Here are the links to the `service-spec` schemas for Hyscale:

@@ -2,27 +2,27 @@
 
 
 
-1.  _hyscalectl deploy service -f <serviceName>.hspec … 
-      -n <nameSpace>  -a <applicationName> [-v]_
+1.  _hyscalectl deploy service -f `<serviceName>`.hspec … 
+      -n `<nameSpace>`  -a `<applicationName>` [-v]_
 
-2. _hyscalectl undeploy service -s <serviceName> …_
-        _-n <nameSpace>_ _-a <applicationName>_
+2. _hyscalectl undeploy service -s `<serviceName>` …_
+        _-n `<nameSpace>`_ _-a `<applicationName>`_
 
 
         (OR)
 
 
-   _hyscalectl undeploy app_ _-n <nameSpace>_ _-a <applicationName>_
+   _hyscalectl undeploy app_ _-n `<nameSpace>`_ _-a `<applicationName>`_
 
 
-3. _hyscalectl generate service manifests  -s <serviceName>_
-        _-n <nameSpace>_ _-a <applicationName>_
+3. _hyscalectl generate service manifests  -s `<serviceName>`_
+        _-n `<nameSpace>`_ _-a `<applicationName>`_
 
-4. _hyscalectl get service logs -s <serviceName> ..._ _-n <nameSpace>_ _-a <applicationName> [-l <lines>] [-t]_
+4. _hyscalectl get service logs -s `<serviceName>` ..._ _-n `<nameSpace>`_ _-a `<applicationName>` [-l `<lines>`] [-t]_
 
-5. _hyscalectl get service status  -s <serviceName>]  …_ _-n <nameSpace>_ _-a <applicationName>_
+5. _hyscalectl get service status  -s `<serviceName>`]  …_ _-n `<nameSpace>`_ _-a `<applicationName>`_
 
-6. _hyscalectl get app status  -n <nameSpace> -a <applicationName>_
+6. _hyscalectl get app status  -n `<nameSpace> -a `<applicationName>`_
 
 
 **Tool Options Description**

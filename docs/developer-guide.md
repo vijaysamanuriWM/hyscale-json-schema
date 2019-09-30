@@ -1,9 +1,8 @@
-				        **Hyscale-Tool**
+**Hyscale-Tool**
 
 Hyscalectl  is a command-line tool which provides developer deployments to kubernetes seamlessly . Developers can directly develop / fix a code and watch his changes in kubernetes within few minutes. All that developer needs is a kubernetes cluster and docker registry .
 
 Prerequisites :
-
 
 
 *   Docker 
@@ -23,7 +22,7 @@ Deploy workflow architecture:
 
 **Workflow Controller **: This controller reads the servicespec and controls the entire workflow of the deployment. The workflow is not chain but is controlled by the controller. Every individual component would process its task and responds back to the controller. This controller would give the necessary input to each component. Reads the kubernetes cluster details from <user.home>/.kube/config and also the registry details to push the image are read from <user.home>/.docker/config.json. 
 
-**Dockerfile Generator **:  
+**Dockerfile Generator**:  
 
 
 
@@ -47,7 +46,7 @@ Key points:
     *   Scripts: Moved(in case of ready-made scripts ) / Written (in case of commands)  to _Relative Docker Path_. These scripts are baked at /hyscale/init-scripts/ inside the container.
     *   Configure commands are run inside the image while run commands override docker “CMD” from the stack image if any.
 
-**Service Image template as **
+**Service Image template as**
 
 **[hyscale.io/<<appName>>/<<serviceName>>:<<tag>> ] :**
 
@@ -103,7 +102,7 @@ Key Points:
 *   After successful login, push command is executed using “docker push” command.
 *   Push logs are written to <user.home>/hyscale-ctl/apps/<app_name>/<service_name>/logs/push.log 
 
-**Manifest Generator **: 
+**Manifest Generator**: 
 
 
 ![manifest-generator](images/manifest-generator.jpg)

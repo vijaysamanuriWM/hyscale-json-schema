@@ -952,8 +952,8 @@ Following are the **Fields** of Port object:
    <td><em>Optional</em>
 <pre>
 <code>
-healthcheck:<br />
-&nbsp;&nbsp;&nbsp;&nbsp;type: &lt;tcp/http/udp&gt; # optional <br />
+healthcheck:
+&nbsp;&nbsp;&nbsp;&nbsp;type: &lt;tcp/http/udp&gt; # optional
 &nbsp;&nbsp;&nbsp;&nbsp;httpPath: &lt;httpPath&gt; # optional if not type: http
 </code>
 </pre>
@@ -1040,20 +1040,13 @@ Eg:
 <pre>
 <code>
 lbMappings:
-<br />
 &nbsp;&nbsp;- host: login.app.com
-<br />
 &nbsp;&nbsp;&nbsp;&nbsp;path: /login
-<br />
 &nbsp;&nbsp;&nbsp;&nbsp;tls: true
-<br />
 &nbsp;&nbsp;&nbsp;&nbsp;httpHeaders:
-<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X-DOMAIN_LOGIN: value
-<br />
 
 &nbsp;&nbsp;- host: launchpad.app.com
-<br />
 &nbsp;&nbsp;&nbsp;&nbsp;path: /launchpad
    </td>
   </tr>

@@ -8,9 +8,10 @@ Table of contents
 =================
 
 <!--ts-->
-   * [overview](#overview)
+   * [Overview](#overview)
    * [General Guidelines](#General-Guidelines)
    * [Reference Spec File](#Reference-Spec-File-with-all-options)
+   * [Example Spec](#Example)  
    * [Field Reference](#Field-Reference)
    * [Spec Template File](#Spec-Template-File)
    * [Profile Files](#Profile-Files)
@@ -27,11 +28,8 @@ Table of contents
 
 ```
         CLUSTER: Kubeconf 
-
 	REGISTRY: Dockerconf
-
 	ARTIFACT-REPO: Jenkinsconf/JfrogConf
-
 	BUILDER: Kanikoconf
 ```
 
@@ -155,7 +153,7 @@ agents:
 ```
 
 
-### Example:
+## Example
 
 
 ```yaml
@@ -1280,28 +1278,27 @@ Eg:
 
 For Off-the-Shelf (OTS) services as well as for commonly used configurations of known services, spec template files could be made available as a starting point. Once a spec template is downloaded for use, it can be extended to create a service spec (hspec) in order to override commonly specified configurations. 
 
-For example, a mysql spec template may include things like 3306 for ports, /var/lib/mysql/ as a volume path, etc. Anyone extending this template to create their hspec may wish to override things like the password secret, etc.
+For example, a mysql spec template may include things like 3306 for ports, `/var/lib/mysql/` as a volume path, etc. Anyone extending this template to create their hspec may wish to override things like the password secret, etc.
 
 The following rules apply to a spec template:
 
 1. Spec templates are valid YAML files.
 2. Spec template end with the extension “htpl.yaml”
 3. A template file must include a “name” and “version” attribute. Name is same as in the filename of the template. Name & version would be used in the hspec which extends.
-4. The filename of the spec template should be same as the service name + version. Eg. “<service-name>-<version>.htpl.yaml”
+4. The filename of the spec template should be same as the service name + version. Eg. `<service-name>-<version>.htpl.yaml`
 5. A template file may include any of the fields that a regular hspec can have, except as per the following. 
 6. A template file cannot include:
     1. buildSpec & dockerSpec
     2. ports->external and ports->lbMappings
 
-
-> *NOTE:* Consideration for future versions of spec templates:
-	Spec Templates as bundles (htpl.tar)
-	This enables things like artifacts, dockerfiles, config files, etc. to be included in the htpl bundle.
-	This will enable support for buildSpec and dockerSpec.
-	The bundle could be name.htpl.tar which expands and should mandatorily include name.htpl.yaml
-	Allow remote spec template repositories & corresponding spec
-
-
+```
+NOTE: Consideration for future versions of spec templates:
+	a. Spec Templates as bundles (htpl.tar)
+	b. This enables things like artifacts, dockerfiles, config files, etc. to be included in the htpl bundle.
+	c. This will enable support for buildSpec and dockerSpec.
+	d. The bundle could be name.htpl.tar which expands and should mandatorily include name.htpl.yaml
+	e. Allow remote spec template repositories & corresponding spec
+```
 
 
 ## Extending a Spec Template

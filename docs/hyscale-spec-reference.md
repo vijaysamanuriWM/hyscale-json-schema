@@ -376,8 +376,11 @@ List of ports to be declared along with externalize, healthcheck and ingressrule
    <td><em>Optional</em>
 <p>
 Can be overridden
-<p>
-<keyName>:[<file/endpoint/string>(]<value>[)]
+<pre>
+<code>
+&lt;keyName&gt;:[&lt;file/endpoint/string&gt;(]&lt;value&gt;[)]
+</code>
+</pre>
 <ul>
 
 <li>List of key value pairs
@@ -388,15 +391,11 @@ Can be overridden
 </li>
 </ul>
 <p>
-Eg:
-<pre>
-<code>
-props:
+<strong>Eg:</strong>
+<pre> <code>props:
    MAX_NO_OF_CONNECTIONS: STRING(10)
-   MYSQL_HOST=ENDPOINT(mysql)
-   KEY_FILE=FILE(/tmp/file.txt)
-</code>
-</pre>
+   MYSQL_HOST: ENDPOINT(mysql)
+   KEY_FILE: FILE(/tmp/file.txt)</code></pre>
    </td>
   </tr>
   <tr>
@@ -412,11 +411,12 @@ props:
 <p>
 List of secret key Names
 <p>
-Eg:
-<p>
+<strong>Eg:</strong>
+<pre><code>
 secrets:
-<p>
 - "MYSQL_ROOT_PASSWORD"
+</code>
+</pre>
    </td>
   </tr>
   <tr>

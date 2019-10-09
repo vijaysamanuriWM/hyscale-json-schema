@@ -51,7 +51,7 @@ deploy -s <service-spec> -p <profile> -i <infra-conf>
 
 ### Reference Spec File with all options
 
-```bash
+```yaml
 
 name: <service-name>                # should be same as in filename
 depends: [<service-name1>, <service-name2>, … , <service-nameN>]
@@ -99,7 +99,7 @@ cpu: [<min-cpu>-]<max-cpu>
 
 external: <true/false>
 ports:
-    - port: <port-number1>[/<port-type>]         # default type is tcp
+    - port: <port-number1>[/<port-type>]             # default type is tcp
       healthCheck:
           httpPath: <http-path>                      # default is false
       lbMappings:                                    # optional
@@ -113,10 +113,10 @@ ports:
 
    [- port: <port-number2>/<port-type>]
 
-volumes:                        # default size is 1G
+volumes:                        
     - name: <volume-name1>
       path: <volume-mount-path>
-     [size: <size>]
+     [size: <size>]             # default size is 1G
      [storageClass: <storageClass>]
 
 propsVolumePath: <volume-path-of-configmap> 
@@ -141,7 +141,7 @@ agents:
       volumes: 
           - path: <volume-mount-path1>
             name: <volume-name1>             # use same name as service vol for sharing
-           [readOnly: <true/false>]        # readOnly is valid for shared volume
+           [readOnly: <true/false>]          # readOnly is valid for shared volume
          [- path: <volume-mount-path2>
             name: <volume-name2>]
            [readOnly: <true/false>]        
@@ -151,7 +151,7 @@ agents:
 ### Example:
 
 
-```bash
+```yaml
 
 name: hrms-frontend
 image:
@@ -258,7 +258,7 @@ profiles: # we can also write conditions to automatically activate one of the pr
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.v8c7yf8pyp4o">image</a>
+   <td>[image](#image)
    </td>
    <td>struct
    </td>
@@ -538,30 +538,23 @@ Supports following tag policies
 </table>
 
 
-**<span style="text-decoration:underline;">Builders:</span>**
+#### Builders:
 
 Hyscale supports following to build your image:
-
-
 
 *   hyscaleBuildSpec locally with Docker
 *   Dockerfile with local docker
 
-    ```
-Note: 
-Following additional building mechanisms can be supported in future:
-Dockerfile with kaniko in-cluster
-jib maven and gradle projects locally 
-bazel locally
-Cloud-native build packs
-```
+> Note: 
+Following additional building mechanisms can be supported in future: <br />
+Dockerfile with kaniko in-cluster <br />
+jib maven and gradle projects locally <br />
+bazel locally <br />
+Cloud-native build packs <br />
 
+## buildSpec
 
-
-**buildSpec **(HyscaleBuildSpec locally with Docker)
-
- 
-
+HyscaleBuildSpec locally with Docker
 
 <table>
   <tr>
@@ -575,7 +568,7 @@ Cloud-native build packs
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.vam4v5z5525c">stackImage</a>
+   <td>[stackImage](#stackImage)
    </td>
    <td>string
    </td>
@@ -637,13 +630,11 @@ Cloud-native build packs
 </table>
 
 
-**_stackImage _**can’t override
+### _stackImage_
 
-   
-
+`
 	stack: [<registryUrl>/]<image>[:<tag>]
-
-
+`
 
 *   Stack indicates the base image on top of which artifacts and configuration is layered.
 *   registryUrl is optional.
@@ -653,10 +644,15 @@ Cloud-native build packs
 
    Eg: 
 
+```yaml
    stackImage: tomcat:8.5
+```
 
-**artifacts** can be overridden
+### artifacts
 
+> can be overridden
+
+```yaml
     artifacts:
 
     	- name: <artifactName1>
@@ -666,10 +662,10 @@ Cloud-native build packs
       	  provider: [ssh/http/local]                  # default local
 
                source: <url>
-
+```
                       
 
-**Fields:**
+#### Fields:
 
 
 <table>
@@ -767,27 +763,23 @@ Cloud-native build packs
 </table>
 
 
-
-
 *   List of artifacts to be copied inside the container image
 *   Copies the artifact mentioned in sourcePath of local folder to destinationPath inside image
 *   Artifact can be from one of the following sources:
 *   local
 *   Remote (like jfrog, jenkins etc..)
 
-**configCommandsScript**
+### _configCommandsScript_
 
-**	**Optional  _string type_
-
-
+> Optional  _string type_
 
 *   Path to a Script containing config commands.
 *   It is mutually exclusive with configCommands field. 
 *   If configCommands is given and not empty configCommandsScript has no effect. 
 
-**runScript**
+### runScript
 
-     Optional  _string type_
+> Optional  _string type_
 
 
 

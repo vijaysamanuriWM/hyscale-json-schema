@@ -1,6 +1,7 @@
 # Hyscale-Tool Developer Guide
-####### Version 1.0B\
-#######  Last Updated 27th September 2019
+
+###### Version 1.0B\
+###### Last Updated 27th September 2019
 
 ---
 

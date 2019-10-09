@@ -950,12 +950,13 @@ Following are the **Fields** of Port object:
    <td><strong>http</strong> incase healthCheckPath is given, <strong>tcp</strong> if nothing given 
    </td>
    <td><em>Optional</em>
-<p>
+<pre>
 <code>
 healthcheck:<br />
 &nbsp;&nbsp;&nbsp;&nbsp;type: &lt;tcp/http/udp&gt; # optional <br />
 &nbsp;&nbsp;&nbsp;&nbsp;httpPath: &lt;httpPath&gt; # optional if not type: http
 </code>
+</pre>
 <p>
 <strong>type</strong>
 <p>
@@ -986,11 +987,13 @@ http Path for http health check
 
 Eg:
 <br />
+<pre>
 <code>
  healthcheck:
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;httpPath: /hmrs
 </code>
+</pre>
    </td>
   </tr>
   <tr>
@@ -1034,22 +1037,24 @@ Ingress Rule contains the following fields:
 <strong>httpHeaders </strong>http headers if any
 <p>
 Eg:
-<p>
+<pre>
+<code>
 lbMappings:
-<p>
-- host: login.app.com
-<p>
-  path: /login
-<p>
-  Tls: true
-<p>
-  httpHeaders:
-<p>
-     X-DOMAIN_LOGIN: value
-<p>
-- host: launchpad.app.com
-<p>
-  path: /launchpad
+<br />
+&nbsp;&nbsp;- host: login.app.com
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;path: /login
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;tls: true
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;httpHeaders:
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X-DOMAIN_LOGIN: value
+<br />
+
+&nbsp;&nbsp;- host: launchpad.app.com
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;path: /launchpad
    </td>
   </tr>
 </table>

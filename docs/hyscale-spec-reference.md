@@ -934,11 +934,9 @@ Following are the **Fields** of Port object:
    </td>
    <td>
    </td>
-   <td><portNumber>[/<portType>]
+   <td>`<portNumber>`[/`<portType>`]
 <ul>
-
 <li>portNumber Port Number to be  declared in pod 0-65535
-
 <li>portType tcp/udp
 </li>
 </ul>
@@ -951,17 +949,15 @@ Following are the **Fields** of Port object:
    </td>
    <td><strong>http</strong> incase healthCheckPath is given, <strong>tcp</strong> if nothing given 
    </td>
-   <td>Optional
+   <td>_Optional_
 <p>
-healthcheck:
-<p>
-      type: <tcp/http/udp> # optional
-<p>
-      httpPath: <httpPath> # optional if not type: http
+healthcheck:<br />
+    type: <tcp/http/udp> # optional <br />
+    httpPath: <httpPath> # optional if not type: http
 <p>
 <strong>type</strong>
 <p>
-Type string Optional
+type string _Optional_
 <p>
 Type of HealthCheck for the specified port
 <ul>
@@ -976,21 +972,19 @@ Type of HealthCheck for the specified port
 <strong>http</strong> incase httpPath is given, <strong>tcp</strong> if nothing given
 <p>
 <strong>Note:</strong>
-<p>
+<br />
 exec/command healthchecks should be mentioned in a separate section
 <p>
 <strong>httpPath</strong>
-<p>
+<br />
 Type string Optional 
-<p>
+<br />
 http Path for http health check
-<p>
-Eg: httpPath: /hrms
-<p>
+<br />
 Eg:
-<p>
+<br />
  healthcheck:
-<p>
+<br />
    httpPath: /hmrs
 </li>
 </ul>

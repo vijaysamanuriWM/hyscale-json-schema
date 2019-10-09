@@ -225,10 +225,10 @@ profiles: # we can also write conditions to automatically activate one of the pr
 - name: stage
   replicas: 3
   props:
-	country: india
-	region: hyderabad
-	max_threads: 10
-	server_xml: file(./config/tomcat/server.xml)
+      country: india
+      region: hyderabad
+      max_threads: 10
+      server_xml: file(./config/tomcat/server.xml)
 
   volumes:
     - name: logs
@@ -444,7 +444,7 @@ List of sidecars to be attached to the pod
 </table>
 
 
-**image**
+### image
 
 Following are the fields of image section.
 
@@ -630,7 +630,7 @@ HyscaleBuildSpec locally with Docker
 </table>
 
 
-### _stackImage_
+### stackImage
 
 `
 	stack: [<registryUrl>/]<image>[:<tag>]

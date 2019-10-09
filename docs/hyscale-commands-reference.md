@@ -14,10 +14,10 @@ Usage:  hyscale deploy service [OPTIONS]
 Deploy an application service
 
 Options:
-  -f, --file string          service spec file `_<serviceName>.hspec_`. Can be repeated for multiple service deployment.
+  -f, --file string          service spec file `<serviceName>.hspec`. Can be repeated for multiple service deployment.
   -n, --namespace string     namespace name
   -a, --application string   Application Name
-  -v  --verbose              `_Optional_` verbose mode
+  -v  --verbose              `Optional` verbose mode
 ```
 
 ## Description

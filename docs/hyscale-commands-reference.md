@@ -1,6 +1,6 @@
 # HyScale Tool Command Reference
 
-###### Version 1.0B <br/> Last Updated 30th September 2019
+> Version 1.0B <br /> Last Updated 30th September 2019
 
 ---
 

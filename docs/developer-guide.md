@@ -1,7 +1,6 @@
 # Hyscale-Tool Developer Guide
 
-Version 1.0B
-
+Version 1.0B\
 Last Updated 27th September 2019
 
 **HyScale** (_hyscale_) is an app deployment tool designed to help developers deploy apps to Kubernetes without having to learn k8s concepts or write & maintain k8s manifests. Powered by HyScale’s enterprise-grade deployment automation & abstraction capabilities, hyscale-ctl accelerates developer adoption of Kubernetes for dev/test environments.

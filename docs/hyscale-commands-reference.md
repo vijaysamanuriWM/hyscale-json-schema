@@ -1,39 +1,23 @@
-**Tool Command structure**
+**HyScale Tool Command Reference**
+
+Version 1.0B
+
+Last Updated 30th September 2019
 
 
 
-1.  _hyscalectl deploy service -f `<serviceName>`.hspec … 
-      -n `<nameSpace>`  -a `<applicationName>` [-v]_
+1. **deploy
 
-2. _hyscalectl undeploy service -s `<serviceName>` …_
-        _-n `<nameSpace>`_ _-a `<applicationName>`_
+```markdown
+Usage:  hyscale deploy service [OPTIONS] 
 
+Deploy an application service
 
-        (OR)
+Options:
+  -f, --file string    <serviceName>.hspec service spec file
+  -n, --namespace string     namespace name
+  -a, --application string   Application Name
+  -v  --verbose     optional verbose mode
+```
 
-
-   _hyscalectl undeploy app_ _-n `<nameSpace>`_ _-a `<applicationName>`_
-
-
-3. _hyscalectl generate service manifests  -s `<serviceName>`_
-        _-n `<nameSpace>`_ _-a `<applicationName>`_
-
-4. _hyscalectl get service logs -s `<serviceName>` ..._ _-n `<nameSpace>`_ _-a `<applicationName>` [-l `<lines>`] [-t]_
-
-5. _hyscalectl get service status  -s `<serviceName>`]  …_ _-n `<nameSpace>`_ _-a `<applicationName>`_
-
-6. _hyscalectl get app status  -n `<nameSpace> -a `<applicationName>`_
-
-
-**Tool Options Description**
-
-    -f <serviceName>.hspec  HyScale Service Spec file where file name should be same as service name mentioned inside spec. This is the name with which service by default gets deployed
-
-
-    -n <nameSpace>          Kubernetes namespace where service is deployed
-
-
-    -a <applicationName>    Logical grouping of services to-gether with give application name. 
-
-
-    -p <environment>.yaml   Environment profile file where single or multiple profile props can be defined.
+    To deploy an application service which is defined in the hspec file, use the "deploy" command. The command requires hspec file, Kubernetes namespace and the application name as  inputs.  Multiple hspec files (-f <serviceName1>.hspec -f <serviceName2>.hspec <serviceNameN>.hspec) can be provided to deploy multiple services.

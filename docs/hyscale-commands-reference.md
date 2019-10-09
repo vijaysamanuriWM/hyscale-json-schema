@@ -1,4 +1,4 @@
-#HyScale Tool Command Reference
+# HyScale Tool Command Reference
 
 Version 1.0B
 

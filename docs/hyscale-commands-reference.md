@@ -6,7 +6,7 @@ Last Updated 30th September 2019
 
 
 
-1. **deploy
+# deploy
 
 ```markdown
 Usage:  hyscale deploy service [OPTIONS] 

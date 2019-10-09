@@ -951,11 +951,9 @@ Following are the **Fields** of Port object:
    </td>
    <td><em>Optional</em>
 <pre>
-<code>
-healthcheck:
+<code>healthcheck:
 &nbsp;&nbsp;&nbsp;&nbsp;type: &lt;tcp/http/udp&gt; # optional
-&nbsp;&nbsp;&nbsp;&nbsp;httpPath: &lt;httpPath&gt; # optional if not type: http
-</code>
+&nbsp;&nbsp;&nbsp;&nbsp;httpPath: &lt;httpPath&gt; # optional if not type: http </code>
 </pre>
 <p>
 <strong>type</strong>
@@ -988,11 +986,8 @@ http Path for http health check
 Eg:
 <br />
 <pre>
-<code>
- healthcheck:
-<br />
-&nbsp;&nbsp;&nbsp;&nbsp;httpPath: /hmrs
-</code>
+<code>healthcheck:
+&nbsp;&nbsp;&nbsp;&nbsp;httpPath: /hmrs </code>
 </pre>
    </td>
   </tr>
@@ -1027,19 +1022,20 @@ Eg:
 List of Ingress rules for the specified por
 <p>
 Ingress Rule contains the following fields:
-<p>
-<strong>host</strong> hostname 
-<p>
-<strong>path </strong>regex path Mapping
-<p>
-<strong>tls</strong> enable ssl
-<p>
+<ul>
+<li><strong>host</strong> - hostname 
+<li>
+<strong>path </strong> - regex path Mapping
+<li>
+<strong>tls</strong> - enable ssl
+<li>
 <strong>httpHeaders </strong>http headers if any
+</li>
+</ul>
 <p>
 Eg:
 <pre>
-<code>
-lbMappings:
+<code>lbMappings:
 &nbsp;&nbsp;- host: login.app.com
 &nbsp;&nbsp;&nbsp;&nbsp;path: /login
 &nbsp;&nbsp;&nbsp;&nbsp;tls: true
@@ -1047,7 +1043,7 @@ lbMappings:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X-DOMAIN_LOGIN: value
 
 &nbsp;&nbsp;- host: launchpad.app.com
-&nbsp;&nbsp;&nbsp;&nbsp;path: /launchpad
+&nbsp;&nbsp;&nbsp;&nbsp;path: /launchpad </code>
    </td>
   </tr>
 </table>

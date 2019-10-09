@@ -20,6 +20,6 @@ Options:
   -v  --verbose              `Optional` verbose mode
 ```
 
-## Description
+### Description
 
 To deploy an application service which is defined in the hspec file, use the "deploy" command. The command requires hspec file, Kubernetes namespace and the application name as  inputs.  Multiple hspec files (-f `<serviceName1>`.hspec -f `<serviceName2>`.hspec `<serviceNameN>`.hspec) can be provided to deploy multiple services.

@@ -14,10 +14,12 @@ Usage:  hyscale deploy service [OPTIONS]
 Deploy an application service
 
 Options:
-  -f, --file string    <serviceName>.hspec service spec file
+  -f, --file string          service spec file _<serviceName>.hspec_
   -n, --namespace string     namespace name
   -a, --application string   Application Name
-  -v  --verbose     optional verbose mode
+  -v  --verbose              _Optional_ verbose mode
 ```
 
-    To deploy an application service which is defined in the hspec file, use the "deploy" command. The command requires hspec file, Kubernetes namespace and the application name as  inputs.  Multiple hspec files (-f <serviceName1>.hspec -f <serviceName2>.hspec <serviceNameN>.hspec) can be provided to deploy multiple services.
+## Description
+
+To deploy an application service which is defined in the hspec file, use the "deploy" command. The command requires hspec file, Kubernetes namespace and the application name as  inputs.  Multiple hspec files (-f <serviceName1>.hspec -f <serviceName2>.hspec <serviceNameN>.hspec) can be provided to deploy multiple services.

@@ -60,16 +60,16 @@ image:
     registry: <target-registry-url>
     tag: <tag>
     dockerfile:
-        path: <build-context-path>        # default is ./
+        path: <build-context-path>               # default is ./
         dockerfilePath: <dockerfile-path>        # default is <path>/Dockerfile
-        target: <stage-name>            # default is final stage 
+        target: <stage-name>                     # default is final stage 
         args:
             <key1>:<value1> 
     buildSpec:
        stackImage: [<pull-registry-url>/]<stack-image-name>[:<stack-image-tag>]
        artifacts:
            - name: <artifact-name>
-             provider: [http|ssh|local]        # default is local
+             provider: [http|ssh|local]          # default is local
              source: <url> #       http://xyz.com/abc/{{ buildNumber }}/login.war            # can have substitutions with place holders 
              destination: <destination-in-container>
 
@@ -81,28 +81,28 @@ image:
          .
          [<config-commandN>]
 
-       runScript: <run-commands-script>    # runs on container start
-                                           # can refer props as $prop-name
-                                           # CMD in dockerfile
+       runScript: <run-commands-script>          # runs on container start
+                                                 # can refer props as $prop-name
+                                                 # CMD in dockerfile
        runCommands: |-
-             # Executes while container start
+         # Executes while container start
          <run-command1>
         [<run-command2>]
          .
          .
         [<run-commandN>]
 
-startCommand: <start-command with args>  # command+args in k8s yaml, overrides ENTRYPOINT+CMD
-replicas: <replica-count>                # default is 1
+startCommand: <start-command with args>          # command+args in k8s yaml, overrides ENTRYPOINT+CMD
+replicas: <replica-count>                        # default is 1
 memory: [<min-memory>-]<max-memory> 
 cpu: [<min-cpu>-]<max-cpu>
 
 external: <true/false>
 ports:
-    - port: <port-number1>[/<port-type>]             # default type is tcp
+    - port: <port-number1>[/<port-type>]         # default type is tcp
       healthCheck:
-          httpPath: <http-path>                      # default is false
-      lbMappings:                                    # optional
+          httpPath: <http-path>                  # default is false
+      lbMappings:                                # optional
             host: <hostName>
             tls: <true/false>
             contextPaths:
@@ -140,8 +140,8 @@ agents:
          [<key2>: [<file/endpoint/string>(]<value2>[)]
       volumes: 
           - path: <volume-mount-path1>
-            name: <volume-name1>             # use same name as service vol for sharing
-           [readOnly: <true/false>]          # readOnly is valid for shared volume
+            name: <volume-name1>                    # use same name as service vol for sharing
+           [readOnly: <true/false>]                 # readOnly is valid for shared volume
          [- path: <volume-mount-path2>
             name: <volume-name2>]
            [readOnly: <true/false>]        

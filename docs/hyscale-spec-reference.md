@@ -307,7 +307,7 @@ Can be overridden
 <p>
 Specify the range 
 <p>
-[<minMemory>-]<maxMemory>
+[&lt;minMemory&gt;-]&lt;maxMemory&gt;
 <p>
 Eg: 512m-1024m or 512m
    </td>
@@ -325,7 +325,7 @@ Can be overridden
 <p>
 Specify the cpu range 
 <p>
-[<minCpu>-]<maxCpu>
+[&lt;minCpu&gt;-]&lt;maxCpu&gt;
 <p>
 Eg: 60-80 or 50
    </td>
@@ -370,7 +370,7 @@ List of ports to be declared along with externalize, healthcheck and ingressrule
    </td>
    <td>
    </td>
-   <td>Optional
+   <td><em>Optional</em>
 <p>
 Can be overridden
 <p>
@@ -382,19 +382,18 @@ Can be overridden
 <li>Value is typed and can be of type: string, file, endpoint
 
 <li>DEFAULT type is string
-
-<p>
-Eg:
-<p>
-props:
-<p>
-   MAX_NO_OF_CONNECTIONS: STRING(10)
-<p>
-   MYSQL_HOST=ENDPOINT(mysql)
-<p>
-   KEY_FILE=FILE(/tmp/file.txt)
 </li>
 </ul>
+<p>
+Eg:
+<pre>
+<code>
+props:
+   MAX_NO_OF_CONNECTIONS: STRING(10)
+   MYSQL_HOST=ENDPOINT(mysql)
+   KEY_FILE=FILE(/tmp/file.txt)
+</code>
+</pre>
    </td>
   </tr>
   <tr>
@@ -404,7 +403,7 @@ props:
    </td>
    <td>
    </td>
-   <td>Optional   Can be overridden
+   <td><em>Optional</em>   Can be overridden
 <p>
 <secretKeyName>
 <p>
@@ -424,7 +423,7 @@ secrets:
    </td>
    <td>
    </td>
-   <td>Optional Can be overridden
+   <td><em>Optional</em> Can be overridden
 <p>
 List of volumes to be specified in a pod.
    </td>
@@ -499,7 +498,7 @@ Note: retagging should be done for the already provided image
    </td>
    <td>
    </td>
-   <td>Optional generate Docker and build with local docker daemon
+   <td><em>Optional</em> generate Docker and build with local docker daemon
    </td>
   </tr>
   <tr>
@@ -521,7 +520,7 @@ Note: retagging should be done for the already provided image
    </td>
    <td>sha256
    </td>
-   <td>Optional
+   <td><em>Optional</em>
 <p>
 Supports following tag policies
 <ul>
@@ -584,7 +583,7 @@ HyscaleBuildSpec locally with Docker
    </td>
    <td>
    </td>
-   <td>Optional Represents the list of artifacts to be present inside the container at defined destinations.
+   <td><em>Optional</em> Represents the list of artifacts to be present inside the container at defined destinations.
    </td>
   </tr>
   <tr>
@@ -604,7 +603,7 @@ HyscaleBuildSpec locally with Docker
    </td>
    <td>
    </td>
-   <td>Optional Array of commands which is invoked during image build. The commands are also part of the image.
+   <td><em>Optional</em> Array of commands which is invoked during image build. The commands are also part of the image.
    </td>
   </tr>
   <tr>
@@ -624,7 +623,7 @@ HyscaleBuildSpec locally with Docker
    </td>
    <td>
    </td>
-   <td>Optional runCommand is a command which gets executed at the time of container start and is baked into the image
+   <td><em>Optional</em> runCommand is a command which gets executed at the time of container start and is baked into the image
    </td>
   </tr>
 </table>
@@ -637,8 +636,8 @@ HyscaleBuildSpec locally with Docker
 `
 
 *   Stack indicates the base image on top of which artifacts and configuration is layered.
-*   registryUrl is optional.
-*   tag or digest is optional. latest is assumed.
+*   registryUrl is `optional`.
+*   tag or digest is `optional`. latest is assumed.
 
    
 
@@ -702,7 +701,7 @@ HyscaleBuildSpec locally with Docker
    </td>
    <td>
    </td>
-   <td>Optional type of provider. Could be one of:
+   <td><em>Optional</em> type of provider. Could be one of:
 <ul>
 
 <li>local  
@@ -794,13 +793,9 @@ Use local docker to build docker image with the given Dockerfile
   	useBuildKit: <true/false>
   	buildArgs:
   	    - <buildarg1>
-
            [- <buildarg2>]
-
             .
-
-	    .
-
+            .
           [- <buildargN>]
 ```
 
@@ -822,7 +817,7 @@ Use local docker to build docker image with the given Dockerfile
    </td>
    <td>./
    </td>
-   <td>Optional buildContext for docker build
+   <td><em>Optional</em> buildContext for docker build
    </td>
   </tr>
   <tr>
@@ -842,7 +837,7 @@ Use local docker to build docker image with the given Dockerfile
    </td>
    <td>
    </td>
-   <td>Optional target stage to be built
+   <td><em>Optional</em> target stage to be built
    </td>
   </tr>
   <tr>
@@ -862,7 +857,7 @@ Use local docker to build docker image with the given Dockerfile
    </td>
    <td>
    </td>
-   <td>Optional List of build arguments to be passed
+   <td><em>Optional</em> List of build arguments to be passed
    </td>
   </tr>
 </table>
@@ -1041,9 +1036,8 @@ Eg:
 &nbsp;&nbsp;&nbsp;&nbsp;tls: true
 &nbsp;&nbsp;&nbsp;&nbsp;httpHeaders:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X-DOMAIN_LOGIN: value
-
-&nbsp;&nbsp;- host: launchpad.app.com
-&nbsp;&nbsp;&nbsp;&nbsp;path: /launchpad </code>
+&nbsp;&nbsp; - host: launchpad.app.com
+&nbsp;&nbsp;&nbsp;&nbsp;path: /launchpad </code> </pre>
    </td>
   </tr>
 </table>
@@ -1083,7 +1077,7 @@ List of volume Objects.
 
 `
 **Note:**
-
+`
 volumes referring other volumes is _future, currently unspecified_
 `
 
@@ -1125,9 +1119,7 @@ name: logsDirectory
    </td>
    <td>Mount Path of the volume inside container 
 <p>
-Eg:
-<p>
-path: /usr/local/tomcat/logs
+<strong>Eg:</strong> <code>path: /usr/local/tomcat/logs</code>
    </td>
   </tr>
   <tr>
@@ -1137,7 +1129,7 @@ path: /usr/local/tomcat/logs
    </td>
    <td>2
    </td>
-   <td>Optional
+   <td><em>Optional</em>
 <p>
 Size of volume to be provisioned
 <p>
@@ -1171,8 +1163,8 @@ List of agent (aka sidecar) objects.
   - name: <sidecarName>
     image: <sidecarWithVersion>
     props:
-    - "<sidecarKey1Name>=<file/endpoint/string>(<sidecarValue1>)"
-    [- "<sidecarKey2Name>=<file/endpoint/string>(<sidecarValue2>)"]
+      <sidecarKey1Name>: <file/endpoint/string>(<sidecarValue1>)
+    [ <sidecarKey2Name>: <file/endpoint/string>(<sidecarValue2>)]
     volumes: 
     - path: <sidecarVolumeMountPath1>
       name: <sidecarVolumeName1>
@@ -1241,7 +1233,7 @@ sidecar: fluentd:5.6
    </td>
    <td>Optional
 <p>
-<sidecarenvkeyName>=[<file/endpoint/string>(]<value>[)]
+<sidecarenvkeyName>=[&lt;file/endpoint/string&gt;(]&lt;value&gt;[)]
 <ul>
 
 <li>List of key value pairs
@@ -1249,19 +1241,18 @@ sidecar: fluentd:5.6
 <li>Value is typed and can be of type: string, file, endpoint
 
 <li>DEFAULT type is string
-
-<p>
-Eg:
-<p>
-props:
-<p>
-- "FLUENTD_ARGS=--no-supervisor -vv"
-<p>
-- "system.input.conf=file(/system.input.conf)"
-<p>
-- "output.conf=file(/tmp/output.conf)"
 </li>
 </ul>
+<p>
+Eg:
+<pre>
+<code>props:
+      FLUENTD_ARGS: --no-supervisor -vv
+      system.input.conf: file(/system.input.conf)
+      output.conf: file(/tmp/output.conf)
+</code>
+</pre>
+
    </td>
   </tr>
   <tr>
@@ -1298,34 +1289,34 @@ The following rules apply to a spec template:
     1. buildSpec & dockerSpec
     2. ports->external and ports->lbMappings
 
-        ```
-NOTE: Consideration for future versions of spec templates:
-Spec Templates as bundles (htpl.tar)
-This enables things like artifacts, dockerfiles, config files, etc. to be included in the htpl bundle.
-This will enable support for buildSpec and dockerSpec.
-The bundle could be name.htpl.tar which expands and should mandatorily include name.htpl.yaml
-Allow remote spec template repositories & corresponding spec
-```
+
+> *NOTE:* Consideration for future versions of spec templates:
+	Spec Templates as bundles (htpl.tar)
+	This enables things like artifacts, dockerfiles, config files, etc. to be included in the htpl bundle.
+	This will enable support for buildSpec and dockerSpec.
+	The bundle could be name.htpl.tar which expands and should mandatorily include name.htpl.yaml
+	Allow remote spec template repositories & corresponding spec
 
 
 
-**Extending a Spec Template (htpl) into a Service Spec (hspec)**
 
-In a service spec, use the “extends” field as follows:
+## Extending a Spec Template (htpl) into a Service Spec (hspec)
 
+In a service spec, use the `extends` field as follows:
 
-    **extends**: <service-template-name>:<template-version>
-
+`
+    extends: <service-template-name>:<template-version>
+`
 In the hspec, any **props, secrets, volumes, ports** specified are merged or overridden if having same keyname. 
 
-“**image**” is overridden if specified in hspec, and the “image” given in the htpl is used as stack image within the buildSpec.
+`image` is overridden if specified in hspec, and the `image` given in the htpl is used as stack image within the buildSpec.
 
 
 ```
 Future versions may support:
-Specifying a remote URL in the extends field
-$remove: <key-name> in the hspec in order to skip that key & corresponding sub-tree from the htpl
-Consider extending multiple htpl files in a single hspec file
+	Specifying a remote URL in the extends field
+	$remove: <key-name> in the hspec in order to skip that key & corresponding sub-tree from the htpl
+	Consider extending multiple htpl files in a single hspec file
 ```
 
 

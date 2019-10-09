@@ -170,12 +170,12 @@ secrets:
   - keystore_password
  
 props:
-	max_conn: file(./config/config.xml)
-	country: india
-	region: hyderabad
-	mysql_ost: endpoint(mysqldb)
-	max_threads: 15
-	Server_xml: file(./config/tomcat/server.xml)
+    max_conn: file(./config/config.xml)
+    country: india
+    region: hyderabad
+    mysql_ost: endpoint(mysqldb)
+    max_threads: 15
+    server_xml: file(./config/tomcat/server.xml)
 external: true
 ports:
   - port: 8080/tcp
@@ -183,7 +183,7 @@ ports:
   	httpPath: /hrms
     
     lbMappings:
-	- host: dev-hrms.com
+        - host: dev-hrms.com
   	  tls: true
   	  path: /hrms
   	  httpHeaders:
@@ -196,7 +196,7 @@ agents:
     props:
     	FLUEND_CONF: file(./config/log/fluentd.conf)
     volumes:
-	- path: /usr/local/tomcat/logs
+        - path: /usr/local/tomcat/logs
   	  name: logs
 
 profiles: # we can also write conditions to automatically activate one of the profile
@@ -210,16 +210,16 @@ profiles: # we can also write conditions to automatically activate one of the pr
  	server_xml: file(./config/tomcat/server.xml)
 
   volumes:
-     - name: logs
-	size: 2g
+    - name: logs
+      size: 2g
   agents:
-     - $disable: true
-	name: logging-agent
+    - $disable: true
+      name: logging-agent
 
   ports:
      - port: 8080/tcp
-	lbMappings:
-	- host: dev-hrms.com
+       lbMappings:
+           - host: dev-hrms.com
 
 # stage profile
 - name: stage
@@ -231,13 +231,13 @@ profiles: # we can also write conditions to automatically activate one of the pr
 	server_xml: file(./config/tomcat/server.xml)
 
   volumes:
-     - name: logs
-	size: 2g
+    - name: logs
+      size: 2g
 
   ports:
-     - port: 8080/tcp
-	lbMappings:
-	- host: stage-hrms.com
+    - port: 8080/tcp
+      lbMappings:
+        - host: stage-hrms.com
 ```
 
 ### 
@@ -258,7 +258,7 @@ profiles: # we can also write conditions to automatically activate one of the pr
    </td>
   </tr>
   <tr>
-   <td>[image](#image)
+   <td><a href="#image">image</a>
    </td>
    <td>struct
    </td>
@@ -352,7 +352,7 @@ Can’t be overridden
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.gutx32mr1un8">ports</a>
+   <td><a href="#ports">ports</a>
    </td>
    <td>list
    </td>
@@ -418,7 +418,7 @@ secrets:
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.k4y83bb9dzbn">volumes</a>
+   <td><a href="#volumes">volumes</a>
    </td>
    <td>list
    </td>
@@ -430,7 +430,7 @@ List of volumes to be specified in a pod.
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.rkiq06vkz3tc">agents</a>
+   <td><a href="#agents">agents</a>
    </td>
    <td>list
    </td>
@@ -493,7 +493,7 @@ Note: retagging should be done for the already provided image
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.qwo0eu2zgv8c">buildSpec</a>
+   <td><a href="#buildspec">buildSpec</a>
    </td>
    <td>struct
    </td>
@@ -503,7 +503,7 @@ Note: retagging should be done for the already provided image
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.9k475593zvyu">dockerfile</a>
+   <td><a href="#dockerfile">dockerfile</a>
    </td>
    <td>struct
    </td>
@@ -568,7 +568,7 @@ HyscaleBuildSpec locally with Docker
    </td>
   </tr>
   <tr>
-   <td>[stackImage](#stackImage)
+   <td><a href="#stackImage">stackImage</a>
    </td>
    <td>string
    </td>
@@ -578,7 +578,7 @@ HyscaleBuildSpec locally with Docker
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.jlc6c0uu1xaa">artifacts</a>
+   <td><a href="#artifacts">artifacts</a>
    </td>
    <td>list
    </td>
@@ -588,7 +588,7 @@ HyscaleBuildSpec locally with Docker
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.og4cgx7y9qcx">configCommandsScript</a>
+   <td><a href="#configCommandsScript">configCommandsScript</a>
    </td>
    <td>string
    </td>
@@ -608,7 +608,7 @@ HyscaleBuildSpec locally with Docker
    </td>
   </tr>
   <tr>
-   <td><a href="#bookmark=id.58ry6tabjuzd">runScript</a>
+   <td><a href="#runScript">runScript</a>
    </td>
    <td>string
    </td>

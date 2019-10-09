@@ -3,14 +3,21 @@
 
 > Version 1.0B <br /> Last Updated 13th September 2019
 
-TABLE OF CONTENTS
+
+Table of contents
+=================
+
+<!--ts-->
+   * [overview](#overview)
+   * [General Guidelines](#General-Guidelines)
+   * [Reference Spec File](#Reference-Spec-File-with-all-options)
+   * [Field Reference](#Field-Reference)
+   * [Spec Template File](#Spec-Template-File)
+   * [Profile Files](#Profile-Files)
+<!--te-->
 
 
-[TOC]
-
-
-
-### Overview
+## Overview
 
 * The Hyscale Service Spec file is meant for user to declaratively describe the service/application and its related configuration.
 
@@ -35,7 +42,7 @@ deploy -s <service-spec> -p <profile> -i <infra-conf>
   (command format & flags are only indicative)
 
 
-### General Guidelines
+## General Guidelines
 
 *   Hyscale Spec File is a valid YAML file.
 *   Works for any service be it bespoke, off-the-shelf, stateless, stateful, etc.
@@ -49,7 +56,7 @@ deploy -s <service-spec> -p <profile> -i <infra-conf>
 *   Supports camel case for keys.  Along with camel case, Uppercase for keys can be accepted in the future. In case of Uppercase,  multi-word keys are separated by underscore `(_)` delimiter.
 
 
-### Reference Spec File with all options
+## Reference Spec File with all options
 
 ```yaml
 
@@ -240,10 +247,8 @@ profiles: # we can also write conditions to automatically activate one of the pr
         - host: stage-hrms.com
 ```
 
-### 
 
-
-### Field Reference
+## Field Reference
 
 
 <table>
@@ -1076,8 +1081,7 @@ List of volume Objects.
 *   sizeInGB volume size in GB to provision using environment defined storage class.
 
 `
-**Note:**
-`
+Note:
 volumes referring other volumes is _future, currently unspecified_
 `
 
@@ -1272,7 +1276,7 @@ Eg:
 ### 
 
 
-### Spec Template File
+## Spec Template File
 
 For Off-the-Shelf (OTS) services as well as for commonly used configurations of known services, spec template files could be made available as a starting point. Once a spec template is downloaded for use, it can be extended to create a service spec (hspec) in order to override commonly specified configurations. 
 
@@ -1300,7 +1304,8 @@ The following rules apply to a spec template:
 
 
 
-## Extending a Spec Template (htpl) into a Service Spec (hspec)
+## Extending a Spec Template
+> (htpl) into a Service Spec (hspec)
 
 In a service spec, use the `extends` field as follows:
 
@@ -1315,23 +1320,24 @@ In the hspec, any **props, secrets, volumes, ports** specified are merged or ove
 ```
 Future versions may support:
 	Specifying a remote URL in the extends field
-	$remove: <key-name> in the hspec in order to skip that key & corresponding sub-tree from the htpl
+	`$remove: <key-name>` in the hspec in order to skip that key & corresponding sub-tree from the htpl
 	Consider extending multiple htpl files in a single hspec file
 ```
 
 
 
-### Profile Files 
+## Profile Files 
 
 In order to deploy a service into different environments (such as QA, Stage, UAT, etc.), it maybe necessary to override certain fields to customize as per that environment. This is supported by the use of profile files.
 
 A profile file may override a spec file by specifying the following:
 
-**environment**: <profile-name>
+```yaml
+environment: <profile-name>
+overrides: <service-name>
+```
 
-**overrides**: <service-name>
-
-Profile files should be “<service-name>.<profile-name>.yaml”
+Profile files should be `<service-name>.<profile-name>.yaml`
 
 The following fields of service spec can be overridden or additionally specified (merged) in a profile file:
 
@@ -1342,7 +1348,6 @@ _(overrides if same keyname)_
 
 ```
 Future versions may support:
-
-Disabling of agents or healthChecks using an additional field in the relevant section such as:
+	Disabling of agents or healthChecks using an additional field in the relevant section such as:
 $disable: true
 ```

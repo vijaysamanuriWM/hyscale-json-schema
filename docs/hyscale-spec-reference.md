@@ -52,176 +52,99 @@ deploy -s <service-spec> -p <profile> -i <infra-conf>
 ### Reference Spec File with all options
 
 ```markdown
-**name**: <service-name>				# should be same as in filename
 
-**depends**: [<service-name1>, <service-name2>, … , <service-nameN>]
-
-**image**:
-
+name: <service-name>                # should be same as in filename
+depends: [<service-name1>, <service-name2>, … , <service-nameN>]
+image:
     name:  <image-name>
-
     registry: <target-registry-url>
-
     tag: <tag>
+    dockerfile:
+        path: <build-context-path>        # default is ./
+        dockerfilePath: <dockerfile-path>        # default is <path>/Dockerfile
+        target: <stage-name>            # default is final stage 
+        args:
+     <key1>:<value1> 
+    buildSpec:
+       stackImage: [<pull-registry-url>/]<stack-image-name>[:<stack-image-tag>]
+       artifacts:
+           - name: <artifact-name>
+             provider: [http|ssh|local]        # default is local
+             source: <url> #       http://xyz.com/abc/{{ buildNumber }}/login.war            # can have substitutions with place holders 
+             destination: <destination-in-container>
 
-**    dockerfile**:
+       configScript: <config-commands-script>    # output of this script is baked inside image
+       configCommands: |-
+         <config-command1>
+         [<config-command2>]
+         .
+         .
+         [<config-commandN>]
 
-        **path**: <build-context-path>		# default is ./
+       runScript: <run-commands-script>    # runs on container start
+# can refer props as $prop-name
+# CMD in dockerfile
+       runCommands: |-
+             # Executes while container start
+         <run-command1>
+        [<run-command2>]
+         .
+         .
+        [<run-commandN>]
 
-        **dockerfilePath**: <dockerfile-path>		# default is <path>/Dockerfile
+startCommand: <start-command with args>  # command+args in k8s yaml, overrides ENTRYPOINT+CMD
+replicas: <replica-count>                # default is 1
+memory: [<min-memory>-]<max-memory> 
+cpu: [<min-cpu>-]<max-cpu>
 
-        **target**: <stage-name>			# default is final stage 
-
-**        args**:
-
-
-         <key1>:<value1> 
-
-**    buildSpec**:
-
-       **stackImage**: [<pull-registry-url>/]<stack-image-name>[:<stack-image-tag>]
-
-       **artifacts**:
-
-           - **name**: <artifact-name>
-
-             **provider**: [**http|ssh|local**]		# default is local
-
-             **source**: <url> #       http://xyz.com/abc/{{ buildNumber }}/login.war            # can have substitutions with place holders 
-
-             **destination**: <destination-in-container>
-
-       **configScript**: <config-commands-script>	# output of this script is baked inside image
-
-       **configCommands**: |-
-
- 	    <config-command1>
-
- 	    [<config-command2>]
-
- 	    .
-
- 	    .
-
- 	    [<config-commandN>]
-
-       **runScript**: <run-commands-script>	# runs on container start
-
-
-                # can refer props as $prop-name
-
-
-                # CMD in dockerfile
-
-       **runCommands**: |-
-
-     	    # Executes while container start
-
- 	    <run-command1>
-
- 	   [<run-command2>]
-
- 	    .
-
- 	    .
-
- 	   [<run-commandN>]
-
-**startCommand**: <start-command with args>  # command+args in k8s yaml, overrides ENTRYPOINT+CMD
-
-**replicas**: <replica-count>				# default is 1
-
-**memory**: [<min-memory>-]<max-memory> 
-
-**cpu**: [<min-cpu>-]<max-cpu>
-
-**external**: <**true/false**>
-
-**ports**:
-
-    - **port**: <port-number1>[/<port-type>] 		# default type is tcp
-
-**      healthCheck:**
-
-          **httpPath**: <http-path>      				# default is false
-
-      **lbMappings**:                                    # optional
-
- 	    host: <hostName>
-
+external: <true/false>
+ports:
+    - port: <port-number1>[/<port-type>]         # default type is tcp
+      healthCheck:
+          httpPath: <http-path>                      # default is false
+      lbMappings:                                    # optional
+         host: <hostName>
             tls: <true/false>
-
             contextPaths:
-
         - path: <path>
-
           headers: 
-
                      header1: value1
-
                     [header2: value2]
+   [- port: <port-number2>/<port-type>]
 
-   [- **port**: <port-number2>/<port-type>]
+volumes:                        # default size is 1G
+    - name: <volume-name1>
+      path: <volume-mount-path>
+     [size: <size>]
+     [storageClass: <storageClass>]
 
-**volumes**:						# default size is 1G
-
-    - **name**: <volume-name1>
-
-      **path**: <volume-mount-path>
-
-     [**size**: <size>]
-
-     [**storageClass**: <storageClass>]
-
-**propsVolumePath**: <volume-path-of-configmap> 
-
-**props**: 
-
-    <key1>: [<**file/endpoint/string**>(]<value1>[)] 	# default type is string
-
+propsVolumePath: <volume-path-of-configmap> 
+props: 
+    <key1>: [<file/endpoint/string>(]<value1>[)]     # default type is string
    [<key2>: <value2>]
-
    .
-
    [<keyN>: <valueN>]
 
-**secrets**:
-
+secrets:
     - <secret1>
-
     .
-
    [- <secretN>]
 
-**secretsVolumePath**: <volume-path-of-secrets>
-
-**agents**:
-
-    - **name**: <sidecarName>
-
-      **image: **[<pull-registry-url>/]<sidecar-image-name>[:<sidecar-image-tag>]
-
-      **props**: 
-
-          <key1>: [<**file/endpoint/string**>(]<value1>[)]
-
-         [<key2>: [<**file/endpoint/string**>(]<value2>[)]
-
-      **volumes**: 
-
-          - **path**: <volume-mount-path1>
-
-            **name**: <volume-name1>             # use same name as service vol for sharing
-
-           [**readOnly**: <true/false>]		# readOnly is valid for shared volume
-
-         [- **path**: <volume-mount-path2>
-
-            **name**: <volume-name2>]
-
-           [**readOnly**: <true/false>]    	```
-
-### 
+secretsVolumePath: <volume-path-of-secrets>
+agents:
+    - name: <sidecarName>
+      image: [<pull-registry-url>/]<sidecar-image-name>[:<sidecar-image-tag>]
+      props: 
+          <key1>: [<file/endpoint/string>(]<value1>[)]
+         [<key2>: [<file/endpoint/string>(]<value2>[)]
+      volumes: 
+          - path: <volume-mount-path1>
+            name: <volume-name1>             # use same name as service vol for sharing
+           [readOnly: <true/false>]        # readOnly is valid for shared volume
+         [- path: <volume-mount-path2>
+            name: <volume-name2>]
+           [readOnly: <true/false>]        
+```
 
 
 ### Example:

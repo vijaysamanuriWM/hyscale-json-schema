@@ -127,7 +127,7 @@ Options:
 To get the status of all the deployed services in an application , use the "get app status". The command requires the Kubernetes namespace and application name as inputs.
 
 
-**Tool Options Description:**
+## Tool Options Description:
 
 **_-f `<serviceName>`.hspec_**
 

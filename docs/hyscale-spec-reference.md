@@ -654,14 +654,10 @@ HyscaleBuildSpec locally with Docker
 
 ```yaml
     artifacts:
-
-    	- name: <artifactName1>
-
-      	  destination: <destination1InContainer>
-
-      	  provider: [ssh/http/local]                  # default local
-
-               source: <url>
+      - name: <artifactName1>
+      	destination: <destination1InContainer>
+      	provider: [ssh/http/local]                  # default local
+           source: <url>
 ```
                       
 
@@ -787,30 +783,26 @@ HyscaleBuildSpec locally with Docker
 *   It is mutually exclusive with runCommands field. 
 *   If runCommands is given and not empty runCommandsScript has no effect. 
 
-**dockerfile**
+### dockerfile
 
 Use local docker to build docker image with the given Dockerfile
 
+```yaml
    docker:
-
   	[buildContext: <buildContext>] #incase buildspecPath is given
-
   	target: <target>
-
   	useBuildKit: <true/false>
-
   	buildArgs:
+  	    - <buildarg1>
 
-  	- <buildarg1>
+           [- <buildarg2>]
 
-  	[- <buildarg2>]
+            .
 
-	.
+	    .
 
-	.
-
-	[- <buildargN>]
-
+          [- <buildargN>]
+```
 
 <table>
   <tr>
@@ -878,64 +870,48 @@ Use local docker to build docker image with the given Dockerfile
 
 Eg:
 
+```yaml
    dockerfile:
-
   	path: ./
-
-      dockerfilePath: Dockerfile.build
-
+        dockerfilePath: Dockerfile.build
   	target: finalstage
-
   	useBuildKit: false
-
   	buildArgs:
+           - foo=value1
+  	   - bar=value2
+```
 
-  	- foo=value1
-
-  	- bar=value2
-
-**ports**
+### ports
 
 List of port objects.
 
+```yaml
 ports:
-
   - port: <portNumber1>[/<portType>]
-
     healthcheck:
-
-      httpPath: <httpPath> # optional if not http type
-
+       httpPath: <httpPath> # optional if not http type
     external: <true/false> # optional default false
-
     lbMappings: #optional
-
-    - host: <hostName>
-
-      path: <path>
-
-      tls: <true/false>
-
-      httpHeaders:
-
-         header1: value1
-
-         [header2: value2]
+      - host: <hostName>
+        path: <path>
+        tls: <true/false>
+        httpHeaders:
+           header1: value1
+          [header2: value2]
 
   [- port: <portNumber2>/<portType>]
+```
 
-Port Object contains:
-
-
+**Port Object contains:**
 
 *   port to be declared in a pod
 *   healthcheck if available for the port to be specified along with the port definition
 *   If you want to externalize this port use _external_ flag
 *   If there are associated ingress rules for the port specify them.
 
-**Note: **                                                                
-
+> Note:
 Currently Health Check would be present for only one port if any.       
+
 
 Following are the **Fields** of Port object:
 
@@ -1083,51 +1059,44 @@ lbMappings:
 
 
 Eg:
-
-       ports:
-
-	- port: 8080/TCP
-
-  	  healthCheck:
-
-  	      httpPath: "/hrms" # optional
-
-  	  external: true # optional default false
-
-  	  lbMappings:
-
+```yaml
+    ports:
+      - port: 8080/TCP
+  	healthCheck:
+  	    httpPath: "/hrms" # optional
+        external: true # optional default false
+        lbMappings:
   	  - host: {{ HOST }}
-
     	    path: /hrms
 
-	- port: 8008/TCP
+      - port: 8008/TCP
+```
 
-**volumes**
+
+### volumes
 
 List of volume Objects.
 
+```yaml
   volumes:# optional can be inferred from docker inspection and default 2 GB + default sc
+    - name: <volumeName1>
+      path: <volumeMountPath>
+     [sizeInGB: <sizeInGB>]
+```
 
-  - name: <volumeName1>
-
-    path: <volumeMountPath>
-
-    [sizeInGB: <sizeInGB>]
-
-volume Object contains:
-
-
+**volume Object contains:**
 
 *   name of volume
 *   path mount Path inside container
 *   sizeInGB volume size in GB to provision using environment defined storage class.
 
+`
 **Note:**
 
 volumes referring other volumes is _future, currently unspecified_
+`
 
 Following are the **Fields** in dataPath object
-
 
 <table>
   <tr>
@@ -1191,47 +1160,37 @@ Eg: size: 1g
 
 Eg:
 
+
+```yaml
 volumes:
+  - name: tomcat-logs
+    path: /usr/local/content/tomcat/current/logs
+    size: 1g
 
-- name: tomcat-logs
+  - name: data
+    path: /usr/local/content/tomcat/current/webapps
+```
 
-  path: /usr/local/content/tomcat/current/logs
-
-  size: 1g
-
-- name: data
-
-  path: /usr/local/content/tomcat/current/webapps
-
-**agents**
+### agents
 
 List of agent (aka sidecar) objects.
 
+```yaml
   agents:
-
   - name: <sidecarName>
-
     image: <sidecarWithVersion>
-
     props:
-
     - "<sidecarKey1Name>=<file/endpoint/string>(<sidecarValue1>)"
-
     [- "<sidecarKey2Name>=<file/endpoint/string>(<sidecarValue2>)"]
-
     volumes: 
-
     - path: <sidecarVolumeMountPath1>
-
       name: <sidecarVolumeName1>
 
    [- path: <sidecarVolumeMountPath2>
-
       name: <sidecarVolumeName2>]
+```
 
-Agent Object contains:
-
-
+**Agent Object contains:** 
 
 *   _name_ of sidecar attachment
 *   _image_ sidecar image full name
@@ -1339,8 +1298,6 @@ For example, a mysql spec template may include things like 3306 for ports, /var/
 
 The following rules apply to a spec template:
 
-
-
 1. Spec templates are valid YAML files.
 2. Spec template end with the extension “htpl.yaml”
 3. A template file must include a “name” and “version” attribute. Name is same as in the filename of the template. Name & version would be used in the hspec which extends.
@@ -1407,4 +1364,3 @@ Future versions may support:
 Disabling of agents or healthChecks using an additional field in the relevant section such as:
 $disable: true
 ```
-

@@ -51,7 +51,7 @@ deploy -s <service-spec> -p <profile> -i <infra-conf>
 
 ### Reference Spec File with all options
 
-```markdown
+```bash
 
 name: <service-name>                # should be same as in filename
 depends: [<service-name1>, <service-name2>, … , <service-nameN>]
@@ -64,7 +64,7 @@ image:
         dockerfilePath: <dockerfile-path>        # default is <path>/Dockerfile
         target: <stage-name>            # default is final stage 
         args:
-     <key1>:<value1> 
+            <key1>:<value1> 
     buildSpec:
        stackImage: [<pull-registry-url>/]<stack-image-name>[:<stack-image-tag>]
        artifacts:
@@ -82,8 +82,8 @@ image:
          [<config-commandN>]
 
        runScript: <run-commands-script>    # runs on container start
-# can refer props as $prop-name
-# CMD in dockerfile
+                                           # can refer props as $prop-name
+                                           # CMD in dockerfile
        runCommands: |-
              # Executes while container start
          <run-command1>
@@ -103,13 +103,14 @@ ports:
       healthCheck:
           httpPath: <http-path>                      # default is false
       lbMappings:                                    # optional
-         host: <hostName>
+            host: <hostName>
             tls: <true/false>
             contextPaths:
-        - path: <path>
-          headers: 
-                     header1: value1
-                    [header2: value2]
+                - path: <path>
+            headers: 
+                header1: value1
+               [header2: value2]
+
    [- port: <port-number2>/<port-type>]
 
 volumes:                        # default size is 1G
@@ -150,7 +151,7 @@ agents:
 ### Example:
 
 
-```markdown
+```bash
 
 name: hrms-frontend
 image:

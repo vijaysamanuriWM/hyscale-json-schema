@@ -4,7 +4,7 @@ Version 1.0B
 
 Last Updated 27th September 2019
 
-HyScale (hyscale-ctl) is an app deployment tool designed to help developers deploy apps to Kubernetes without having to learn k8s concepts or write & maintain k8s manifests. Powered by HyScale’s enterprise-grade deployment automation & abstraction capabilities, hyscale-ctl accelerates developer adoption of Kubernetes for dev/test environments.
+**HyScale** (_hyscale_) is an app deployment tool designed to help developers deploy apps to Kubernetes without having to learn k8s concepts or write & maintain k8s manifests. Powered by HyScale’s enterprise-grade deployment automation & abstraction capabilities, hyscale-ctl accelerates developer adoption of Kubernetes for dev/test environments.
 
 ### Prerequisites
 
@@ -32,9 +32,9 @@ Generates dockerfile from the given servicespec . The dockerfile generation is a
 
 *   Dockerfile & BuildSpec in servicespec are mutually exclusive fields , they cannot exist together.
 *   Dockerfile Generator is executed when **none** of the following conditions is met i.e ( when skipped ): 
-1. When user has a ready-made dockerfile ie. user provided dockerfile in the service spec.
-2. When both dockerfile & buildSpec are not provided.
-3. When buildSpec exist & if it has no artifacts , configureCommands,  runCommands, configScript, runScript. 
+    * When user has a ready-made dockerfile ie. user provided dockerfile in the service spec.
+    * When both dockerfile & buildSpec are not provided.
+    * When buildSpec exist & if it has no artifacts , configureCommands,  runCommands, configScript, runScript. 
 *   Dockerfiles are generated at `<user.home>`/hyscale-ctl/apps/`<app_name>`/`<service_name>`/generated-files/dockerfiles/
 *   Assume (`<user.home>`/hyscale-ctl/apps/`<app_name>`/`<service_name>`/generated-files/dockerfiles/ ) as _Relative Docker Path_.
 *   Any supporting files referred in the buildSpec like artifacts, configuration script, run script are copied relative to the Dockerfile directory. . This is the action in Dockerfile Generation during the deploy command.

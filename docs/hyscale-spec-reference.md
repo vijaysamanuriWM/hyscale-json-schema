@@ -934,7 +934,7 @@ Following are the **Fields** of Port object:
    </td>
    <td>
    </td>
-   <td>`<portNumber>`[/`<portType>`]
+   <td><code><portNumber>[/<portType>]</code>
 <ul>
 <li>portNumber Port Number to be  declared in pod 0-65535
 <li>portType tcp/udp
@@ -952,8 +952,8 @@ Following are the **Fields** of Port object:
    <td>_Optional_
 <p>
 healthcheck:<br />
-    type: <tcp/http/udp> # optional <br />
-    httpPath: <httpPath> # optional if not type: http
+&nbsp;&nbsp;&nbsp;&nbsp;type: <tcp/http/udp> # optional <br />
+&nbsp;&nbsp;&nbsp;&nbsp;httpPath: <httpPath> # optional if not type: http
 <p>
 <strong>type</strong>
 <p>

@@ -79,7 +79,7 @@ To undeploy a particular application service which was deployed by HyScale, use 
 ## undeploy app
 
 ```markdown
-Usage: hyscalectl undeploy app [OPTIONS]
+Usage: hyscale undeploy app [OPTIONS]
 
 Undeploy an existing deployed application.
 
@@ -95,7 +95,7 @@ HyScale deletes all the services of an application using the "undeploy app" comm
 ## generate
 
 ```markdown
-Usage: hyscalectl generate service manifests [OPTIONS]
+Usage: hyscale generate service manifests [OPTIONS]
 
 Generate kubernetes manifests for the specified services.
 
@@ -111,7 +111,7 @@ HyScale abstracts the generation of Kubernetes manifests for deployments, howeve
 ## app status
 
 ```markdown
-Usage: hyscalectl get app status [OPTIONS]
+Usage: hyscale get app status [OPTIONS]
 
 Status of Deployed Application.
 

@@ -32,8 +32,8 @@ Table of contents
 
 *   Works for any service be it bespoke, off-the-shelf, stateless, stateful, etc.
 *   Following Infra targets are assumed :
-   * kubernetes cluster from ~/.kube/config
-   * registry authentication credentials from ~/.docker/config.json
+      *  kubernetes cluster from ~/.kube/config
+      * registry authentication credentials from ~/.docker/config.json
 
 
 ## Reference Spec File with all options

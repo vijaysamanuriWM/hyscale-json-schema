@@ -9,7 +9,6 @@ Table of contents
 
 <!--ts-->
    * [Overview](#overview)
-   * [General Guidelines](#General-Guidelines)
    * [Reference Spec File](#Reference-Spec-File-with-all-options)
    * [Example Spec](#Example)  
    * [Field Reference](#Field-Reference)
@@ -20,38 +19,21 @@ Table of contents
 
 ## Overview
 
-* The Hyscale Service Spec file is meant for user to declaratively describe the service/application and its related configuration.
-
-* For environment related overrides/differences, specify a profile which can override certain service/app related configurations.
-
-* Infra targets are specified in a infra conf which maintains the paths to various infra conf/creds such as:
-
-```
-        CLUSTER: Kubeconf 
-	REGISTRY: Dockerconf
-	ARTIFACT-REPO: Jenkinsconf/JfrogConf
-	BUILDER: Kanikoconf
-```
-
-* Deployment of a service involves 3 inputs:
-`
-deploy -s <service-spec> -p <profile> -i <infra-conf>
-`
-  (command format & flags are only indicative)
-
-
-## General Guidelines
-
+*   The Hyscale Service Spec file is meant for user to declaratively describe the service/application and its related configuration.
 *   Hyscale Spec File is a valid YAML file.
-*   Works for any service be it bespoke, off-the-shelf, stateless, stateful, etc.
 *   Abstracts Kubernetes concepts/knowledge with a simplified DSL.
-*   Should be developer friendly and can be added to version control.
-*   Any spec file should end with “.hspec.yaml” so that service specs can be easily identified
+*   Developer friendly and can be added to version control.
+*   Spec file should end with “.hspec.yaml” so that service specs can be easily identified.
 *   Filename  should be named exactly as per service name `<service-name>.hspec.yaml`
 *   Multiple spec files can be present in a directory.
-*   Support environment profiles (eg: dev, stage and prod etc.) Env props and customizations are in profile file. 
-*   Profile files may mirror some of the fields given in the service spec. Only few fields allowed as indicated in this reference. Any fields specified in profile may get merged or override the ones given in spec, this behaviour is specified below for each field.
-*   Supports camel case for keys.  Along with camel case, Uppercase for keys can be accepted in the future. In case of Uppercase,  multi-word keys are separated by underscore `(_)` delimiter.
+*   Support environment profiles (eg: dev, stage and prod etc.) Env props and customizations are in profile file. `Future item` 
+*   Profile files may mirror some of the fields given in the service spec. Only few fields allowed as indicated in this reference. Any fields specified in profile may get merged or override the ones given in spec, this behaviour is specified below for each field. `Future item`
+*   Supports camel case for keys. Along with camel case, Uppercase for keys can be accepted in the future. In case of Uppercase, multi-word keys are separated by underscore `(_)` delimiter.
+
+*   Works for any service be it bespoke, off-the-shelf, stateless, stateful, etc.
+*   Following Infra targets are assumed :
+   * kubernetes cluster from ~/.kube/config
+   * registry authentication credentials from ~/.docker/config.json
 
 
 ## Reference Spec File with all options
@@ -59,7 +41,6 @@ deploy -s <service-spec> -p <profile> -i <infra-conf>
 ```yaml
 
 name: <service-name>                # should be same as in filename
-depends: [<service-name1>, <service-name2>, … , <service-nameN>]     # dependency on other services (futuristic)
 image:
     name:  <image-name>
     registry: <target-registry-url>
@@ -107,14 +88,6 @@ ports:
     - port: <port-number1>[/<port-type>]         # default type is tcp
       healthCheck:
           httpPath: <http-path>                  # default is false
-      lbMappings:                                # optional
-            host: <hostName>
-            tls: <true/false>
-            contextPaths:
-                - path: <path>
-            headers: 
-                header1: value1
-               [header2: value2]
 
    [- port: <port-number2>/<port-type>]
 
@@ -138,19 +111,6 @@ secrets:
 
 secretsVolumePath: <volume-path-of-secrets>
 
-agents:                                              # declaration of sidecars (will be implemented in future versions)
-    - name: <sidecarName>
-      image: [<pull-registry-url>/]<sidecar-image-name>[:<sidecar-image-tag>]
-      props: 
-          <key1>: [<file/endpoint/string>(]<value1>[)]
-         [<key2>: [<file/endpoint/string>(]<value2>[)]
-      volumes: 
-          - path: <volume-mount-path1>
-            name: <volume-name1>                    # use same name as service vol for sharing
-           [readOnly: <true/false>]                 # readOnly is valid for shared volume
-         [- path: <volume-mount-path2>
-            name: <volume-name2>]
-           [readOnly: <true/false>]        
 ```
 
 
@@ -188,23 +148,6 @@ ports:
     healthCheck:
   	httpPath: /hrms
     
-    lbMappings:
-        - host: dev-hrms.com
-  	  tls: true
-  	  path: /hrms
-  	  httpHeaders:
-     	     header1: value1
-     	     header2: value2
-
-agents:
-  - name: logging-agent
-    image: gcr.io/test/logstash:2.2
-    props:
-    	FLUEND_CONF: file(./config/log/fluentd.conf)
-    volumes:
-        - path: /usr/local/tomcat/logs
-  	  name: logs
-
 profiles: # we can also write conditions to automatically activate one of the profile
 # dev profile
 - name: dev
@@ -218,14 +161,6 @@ profiles: # we can also write conditions to automatically activate one of the pr
   volumes:
     - name: logs
       size: 2Gi
-  agents:
-    - $disable: true
-      name: logging-agent
-
-  ports:
-     - port: 8080/tcp
-       lbMappings:
-           - host: dev-hrms.com
 
 # stage profile
 - name: stage
@@ -240,10 +175,6 @@ profiles: # we can also write conditions to automatically activate one of the pr
     - name: logs
       size: 2Gi
 
-  ports:
-    - port: 8080/tcp
-      lbMappings:
-        - host: stage-hrms.com
 ```
 
 
@@ -457,18 +388,6 @@ secrets:
    <td><em>Optional</em> Can be overridden
 <p>
 List of volumes to be specified in a pod.
-   </td>
-  </tr>
-  <tr>
-   <td><a href="#agents">agents</a>
-   </td>
-   <td>list
-   </td>
-   <td>
-   </td>
-   <td>Optional Can be overridden
-<p>
-List of sidecars to be attached to the pod
    </td>
   </tr>
 </table>
@@ -917,13 +836,6 @@ ports:
   - port: <portNumber1>[/<portType>]
     healthCheck:
        httpPath: <httpPath> # optional if not http type
-    lbMappings:             # optional will be implemented in future versions
-      - host: <hostName>
-        path: <path>
-        tls: <true/false>
-        httpHeaders:
-           header1: value1
-          [header2: value2]
 
   [- port: <portNumber2>/<portType>]
 ```
@@ -932,11 +844,9 @@ ports:
 
 *   port to be declared in a pod
 *   healthcheck if available for the port to be specified along with the port definition
-*   If there are associated ingress rules for the port specify them.
 
 > Note:
-Currently Health Check would be present for only one port if any.       
-
+Currently Health Check would be present for only one port if any. If there are multiple healthChecks declared first healthCheck will be picked.      
 
 Following are the **Fields** of Port object:
 
@@ -990,8 +900,6 @@ Type of HealthCheck for the specified port
 
 <li>tcp 
 
-<li>Udp
-
 <li>http 
 
 <p>
@@ -1017,41 +925,6 @@ Eg:
    </td>
   </tr>
   </tr>
-  <tr>
-   <td>lbMappings
-   </td>
-   <td>list
-   </td>
-   <td>
-   </td>
-   <td>Optional
-<p>
-List of Ingress rules for the specified por
-<p>
-Ingress Rule contains the following fields:
-<ul>
-<li><strong>host</strong> - hostname 
-<li>
-<strong>path </strong> - regex path Mapping
-<li>
-<strong>tls</strong> - enable ssl
-<li>
-<strong>httpHeaders </strong>http headers if any
-</li>
-</ul>
-<p>
-Eg:
-<pre>
-<code>lbMappings:
-&nbsp;&nbsp;- host: login.app.com
-&nbsp;&nbsp;&nbsp;&nbsp;path: /login
-&nbsp;&nbsp;&nbsp;&nbsp;tls: true
-&nbsp;&nbsp;&nbsp;&nbsp;httpHeaders:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X-DOMAIN_LOGIN: value
-&nbsp;&nbsp; - host: launchpad.app.com
-&nbsp;&nbsp;&nbsp;&nbsp;path: /launchpad </code> </pre>
-   </td>
-  </tr>
 </table>
 
 
@@ -1061,9 +934,6 @@ Eg:
       - port: 8080/TCP
   	healthCheck:
   	    httpPath: "/hrms" # optional
-        lbMappings:
-  	  - host: {{ HOST }}
-    	    path: /hrms
 
       - port: 8008/TCP
 ```
@@ -1164,123 +1034,6 @@ volumes:
     path: /usr/local/content/tomcat/current/webapps
 ```
 
-### agents
-
-> will be implemented in future versions.
-
-List of agent (aka sidecar) objects.
-
-```yaml
-  agents:
-  - name: <sidecarName>
-    image: <sidecarWithVersion>
-    props:
-      <sidecarKey1Name>: <file/endpoint/string>(<sidecarValue1>)
-    [ <sidecarKey2Name>: <file/endpoint/string>(<sidecarValue2>)]
-    volumes: 
-    - path: <sidecarVolumeMountPath1>
-      name: <sidecarVolumeName1>
-
-   [- path: <sidecarVolumeMountPath2>
-      name: <sidecarVolumeName2>]
-```
-
-**Agent Object contains:** 
-
-*   _name_ of sidecar attachment
-*   _image_ sidecar image full name
-*   _props_ list of env including secrets
-*   _volumes list of volumes_
-
-Following are the **fields** of agent object:
-
-
-<table>
-  <tr>
-   <td><strong>Option</strong>
-   </td>
-   <td><strong>Type</strong>
-   </td>
-   <td><strong>default</strong>
-   </td>
-   <td><strong>Explanation</strong>
-   </td>
-  </tr>
-  <tr>
-   <td>name
-   </td>
-   <td>string
-   </td>
-   <td>
-   </td>
-   <td>Name of sidecar Attachment
-<p>
-should be up to maximum length of 253 characters and consist of lower case alphanumeric characters, -, and ., but certain resources have more specific restrictions.
-<p>
-Eg:
-<p>
-name: fluentd
-   </td>
-  </tr>
-  <tr>
-   <td>image
-   </td>
-   <td>string
-   </td>
-   <td>
-   </td>
-   <td>sidecar with version
-<p>
-Eg:
-<p>
-sidecar: fluentd:5.6
-   </td>
-  </tr>
-  <tr>
-   <td>props
-   </td>
-   <td>list
-   </td>
-   <td>2
-   </td>
-   <td>Optional
-<p>
-<sidecarenvkeyName>=[&lt;file/endpoint/string&gt;(]&lt;value&gt;[)]
-<ul>
-
-<li>List of key value pairs
-
-<li>Value is typed and can be of type: string, file, endpoint
-
-<li>DEFAULT type is string
-</li>
-</ul>
-<p>
-Eg:
-<pre>
-<code>props:
-      FLUENTD_ARGS: --no-supervisor -vv
-      system.input.conf: file(/system.input.conf)
-      output.conf: file(/tmp/output.conf)
-</code>
-</pre>
-
-   </td>
-  </tr>
-  <tr>
-   <td>volumes
-   </td>
-   <td>list
-   </td>
-   <td>
-   </td>
-   <td>List of volumes to be declared for a sidecar
-   </td>
-  </tr>
-</table>
-
-
-
 ### 
 
 
@@ -1295,13 +1048,13 @@ For example, a mysql spec template may include things like 3306 for ports, `/var
 The following rules apply to a spec template:
 
 1. Spec templates are valid YAML files.
-2. Spec template end with the extension “htpl.yaml”
-3. A template file must include a “name” and “version” attribute. Name is same as in the filename of the template. Name & version would be used in the hspec which extends.
+2. Spec template end with the extension `htpl.yaml`
+3. A template file must include a `name` and `version` attribute. Name is same as in the filename of the template. Name & version would be used in the hspec which extends.
 4. The filename of the spec template should be same as the service name + version. Eg. `<service-name>-<version>.htpl.yaml`
 5. A template file may include any of the fields that a regular hspec can have, except as per the following. 
 6. A template file cannot include:
     1. buildSpec & dockerSpec
-    2. external and ports->lbMappings
+    2. external
 
 ```
 NOTE: Consideration for future versions of spec templates:
@@ -1352,13 +1105,13 @@ Profile files should be `<service-name>.<profile-name>.yaml`
 
 The following fields of service spec can be overridden or additionally specified (merged) in a profile file:
 
-**props, secrets, replicas, resource-limits, size of volumes **and** agents**
+**props, secrets, replicas, resource-limits, size of volumes.
 
 _(overrides if same keyname)_
 
 
 ```
 Future versions may support:
-	Disabling of agents or healthChecks using an additional field in the relevant section such as:
+	Disabling of healthChecks using an additional field in the relevant section such as:
 $disable: true
 ```

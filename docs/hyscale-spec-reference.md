@@ -59,7 +59,7 @@ deploy -s <service-spec> -p <profile> -i <infra-conf>
 ```yaml
 
 name: <service-name>                # should be same as in filename
-depends: [<service-name1>, <service-name2>, … , <service-nameN>]
+depends: [<service-name1>, <service-name2>, … , <service-nameN>]     # dependency on other services (futuristic)
 image:
     name:  <image-name>
     registry: <target-registry-url>
@@ -137,7 +137,8 @@ secrets:
    [- <secretN>]
 
 secretsVolumePath: <volume-path-of-secrets>
-agents:
+
+agents:                                              # declaration of sidecars (will be implemented in future versions)
     - name: <sidecarName>
       image: [<pull-registry-url>/]<sidecar-image-name>[:<sidecar-image-tag>]
       props: 
@@ -658,8 +659,8 @@ HyscaleBuildSpec locally with Docker
     artifacts:
       - name: <artifactName1>
       	destination: <destination1InContainer>
-      	provider: [ssh/http/local]                  # default local
-           source: <url>
+      	provider: [ssh/http/local]                  # default local (ssh, http will be implemented in future versions)
+        source: <url>
 ```
                       
 
@@ -790,16 +791,16 @@ HyscaleBuildSpec locally with Docker
 Use local docker to build docker image with the given Dockerfile
 
 ```yaml
-   docker:
+   dockerfile:
   	[buildContext: <buildContext>] #incase buildspecPath is given
   	target: <target>
-  	useBuildKit: <true/false>
+  	useBuildKit: <true/false>      # use buildKit for building (will be implemented in future versions)
   	buildArgs:
   	    - <buildarg1>
            [- <buildarg2>]
             .
             .
-          [- <buildargN>]
+           [- <buildargN>]
 ```
 
 <table>
@@ -850,7 +851,7 @@ Use local docker to build docker image with the given Dockerfile
    </td>
    <td>
    </td>
-   <td>Optional Use buildkit 
+   <td>Optional Use buildkit <em>(will be implemented in future versions)</em>
    </td>
   </tr>
   <tr>

@@ -355,6 +355,25 @@ Can’t be overridden
 </ul>
    </td>
   </tr>
+<tr>
+   <td>external
+   </td>
+   <td>string
+   </td>
+   <td>false
+   </td>
+   <td>Optional
+<p>
+<true/false>
+<ul>
+
+<li>Exposes the service externally.
+
+<li>External IP would be assigned for the service.
+</li>
+</ul>
+   </td>
+  </tr>
   <tr>
    <td><a href="#ports">ports</a>
    </td>
@@ -364,7 +383,7 @@ Can’t be overridden
    </td>
    <td>Can be overridden
 <p>
-List of ports to be declared along with externalize, healthcheck and ingressrules if any.
+List of ports to be declared along healthcheck and ingressrules if any.
    </td>
   </tr>
   <tr>
@@ -386,7 +405,15 @@ Can be overridden
 
 <li>List of key value pairs
 
-<li>Value is typed and can be of type: string, file, endpoint
+<li>Value is typed and can be of type: string, file, endpoint. 
+<ul>
+<li> if the value is file typed. utf-8 content of the file will be sent.
+
+<li> if the value is endpoint typed. service discovery name of the given service is passed as the value.
+
+</li>
+</ul>
+
 
 <li>DEFAULT type is string
 </li>
@@ -794,7 +821,7 @@ Use local docker to build docker image with the given Dockerfile
    dockerfile:
   	target: <target>
         path: <buildContextPath>            # Optional buildcontext path
-	dockerfilePath: <DockerfilePath>    # Optional path to Dockerfile
+        dockerfilePath: <DockerfilePath>    # Optional path to Dockerfile
   	useBuildKit: <true/false>           # use buildKit for building (will be implemented in future versions)
   	buildArgs:
   	    - <buildarg1>
@@ -890,7 +917,6 @@ ports:
   - port: <portNumber1>[/<portType>]
     healthCheck:
        httpPath: <httpPath> # optional if not http type
-    external: <true/false>  # optional default false
     lbMappings:             # optional will be implemented in future versions
       - host: <hostName>
         path: <path>
@@ -906,7 +932,6 @@ ports:
 
 *   port to be declared in a pod
 *   healthcheck if available for the port to be specified along with the port definition
-*   If you want to externalize this port use _external_ flag
 *   If there are associated ingress rules for the port specify them.
 
 > Note:
@@ -991,24 +1016,6 @@ Eg:
 </pre>
    </td>
   </tr>
-  <tr>
-   <td>external
-   </td>
-   <td>string
-   </td>
-   <td>false
-   </td>
-   <td>Optional
-<p>
-<true/false>
-<ul>
-
-<li>Exposes the specified port externally. 
-
-<li>External IP would be assigned.
-</li>
-</ul>
-   </td>
   </tr>
   <tr>
    <td>lbMappings
@@ -1054,7 +1061,6 @@ Eg:
       - port: 8080/TCP
   	healthCheck:
   	    httpPath: "/hrms" # optional
-        external: true # optional default false
         lbMappings:
   	  - host: {{ HOST }}
     	    path: /hrms
@@ -1295,7 +1301,7 @@ The following rules apply to a spec template:
 5. A template file may include any of the fields that a regular hspec can have, except as per the following. 
 6. A template file cannot include:
     1. buildSpec & dockerSpec
-    2. ports->external and ports->lbMappings
+    2. external and ports->lbMappings
 
 ```
 NOTE: Consideration for future versions of spec templates:

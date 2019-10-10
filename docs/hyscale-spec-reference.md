@@ -113,6 +113,7 @@ secretsVolumePath: <volume-path-of-secrets>
 
 ```
 
+Here is the [Service Spec Schema](../json-schemas/README.md)
 
 ## Example
 
@@ -199,7 +200,7 @@ profiles: # we can also write conditions to automatically activate one of the pr
    </td>
    <td>
    </td>
-   <td>Can’t be overridden
+   <td><em>Can’t be overridden</em>
 <p>
 Describes an image to be deployed.
 <p>
@@ -224,7 +225,7 @@ image section contains following:
    </td>
    <td>Optional
 <p>
-Can be overridden
+<em>Can be overridden</em>
 <p>
 Number of instances of the service
    </td>
@@ -238,7 +239,7 @@ Number of instances of the service
    </td>
    <td>Optional
 <p>
-Can be overridden
+<em>Can be overridden</em>
 <p>
 Specify the range 
 <p>
@@ -256,7 +257,7 @@ Eg: 512m-1024m or 512m
    </td>
    <td>Optional
 <p>
-Can be overridden
+<em>Can be overridden</em>
 <p>
 Specify the cpu range 
 <p>
@@ -274,7 +275,7 @@ Eg: 60-80 or 50
    </td>
    <td>Optional
 <p>
-Can’t be overridden
+<em>Can't be overridden</em>
 <ul>
 
 <li>startCommand is a command which gets executed at the time of container start
@@ -312,7 +313,7 @@ Can’t be overridden
    </td>
    <td>
    </td>
-   <td>Can be overridden
+   <td><em>Can be overridden</em>
 <p>
 List of ports to be declared along healthcheck and ingressrules if any.
    </td>
@@ -326,7 +327,7 @@ List of ports to be declared along healthcheck and ingressrules if any.
    </td>
    <td><em>Optional</em>
 <p>
-Can be overridden
+<em>Can be overridden</em>
 <pre>
 <code>
 &lt;keyName&gt;:[&lt;file/endpoint/string&gt;(]&lt;value&gt;[)]
@@ -364,7 +365,7 @@ Can be overridden
    </td>
    <td>
    </td>
-   <td><em>Optional</em>   Can be overridden
+   <td><em>Optional</em>   <em>Can be overridden</em>
 <p>
 <secretKeyName>
 <p>
@@ -385,7 +386,7 @@ secrets:
    </td>
    <td>
    </td>
-   <td><em>Optional</em> Can be overridden
+   <td><em>Optional</em> <em>Can be overridden</em>
 <p>
 List of volumes to be specified in a pod.
    </td>

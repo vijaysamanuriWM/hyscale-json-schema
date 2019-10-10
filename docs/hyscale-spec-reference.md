@@ -889,8 +889,8 @@ ports:
   - port: <portNumber1>[/<portType>]
     healthcheck:
        httpPath: <httpPath> # optional if not http type
-    external: <true/false> # optional default false
-    lbMappings: #optional
+    external: <true/false>  # optional default false
+    lbMappings:             # optional will be implemented in future versions
       - host: <hostName>
         path: <path>
         tls: <true/false>

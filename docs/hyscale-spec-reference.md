@@ -78,7 +78,7 @@ image:
              source: <url> #       http://xyz.com/abc/{{ buildNumber }}/login.war            # can have substitutions with place holders 
              destination: <destination-in-container>
 
-       configScript: <config-commands-script>    # output of this script is baked inside image
+       configCommandsScript: <config-commands-script>    # output of this script is baked inside image
        configCommands: |-
          <config-command1>
          [<config-command2>]
@@ -86,7 +86,7 @@ image:
          .
          [<config-commandN>]
 
-       runScript: <run-commands-script>          # runs on container start
+       runCommandsScript: <run-commands-script>          # runs on container start
                                                  # can refer props as $prop-name
                                                  # CMD in dockerfile
        runCommands: |-
@@ -167,10 +167,10 @@ replicas: 1
 volumes:
   - name: logs
     path: /usr/local/tomcat/logs
-    size: 1g
+    size: 1Gi
   - name: data
     path: /data
-    size: 2g
+    size: 2Gi
  
 secrets:
   - keystore_password
@@ -217,7 +217,7 @@ profiles: # we can also write conditions to automatically activate one of the pr
 
   volumes:
     - name: logs
-      size: 2g
+      size: 2Gi
   agents:
     - $disable: true
       name: logging-agent
@@ -238,7 +238,7 @@ profiles: # we can also write conditions to automatically activate one of the pr
 
   volumes:
     - name: logs
-      size: 2g
+      size: 2Gi
 
   ports:
     - port: 8080/tcp
@@ -611,7 +611,7 @@ HyscaleBuildSpec locally with Docker
    </td>
   </tr>
   <tr>
-   <td><a href="#runScript">runScript</a>
+   <td><a href="#runCommandsScript">runCommandsScript</a>
    </td>
    <td>string
    </td>
@@ -768,7 +768,7 @@ HyscaleBuildSpec locally with Docker
 *   local
 *   Remote (like jfrog, jenkins etc..)
 
-### _configCommandsScript_
+### configCommandsScript
 
 > Optional  _string type_
 
@@ -776,7 +776,7 @@ HyscaleBuildSpec locally with Docker
 *   It is mutually exclusive with configCommands field. 
 *   If configCommands is given and not empty configCommandsScript has no effect. 
 
-### runScript
+### runCommandsScript
 
 > Optional  _string type_
 
@@ -792,9 +792,10 @@ Use local docker to build docker image with the given Dockerfile
 
 ```yaml
    dockerfile:
-  	[buildContext: <buildContext>] #incase buildspecPath is given
   	target: <target>
-  	useBuildKit: <true/false>      # use buildKit for building (will be implemented in future versions)
+        path: <buildContextPath>            # Optional buildcontext path
+	dockerfilePath: <DockerfilePath>    # Optional path to Dockerfile
+  	useBuildKit: <true/false>           # use buildKit for building (will be implemented in future versions)
   	buildArgs:
   	    - <buildarg1>
            [- <buildarg2>]
@@ -887,7 +888,7 @@ List of port objects.
 ```yaml
 ports:
   - port: <portNumber1>[/<portType>]
-    healthcheck:
+    healthCheck:
        httpPath: <httpPath> # optional if not http type
     external: <true/false>  # optional default false
     lbMappings:             # optional will be implemented in future versions
@@ -950,8 +951,8 @@ Following are the **Fields** of Port object:
    </td>
    <td><em>Optional</em>
 <pre>
-<code>healthcheck:
-&nbsp;&nbsp;&nbsp;&nbsp;type: &lt;tcp/http/udp&gt; # optional
+<code>healthCheck:
+&nbsp;&nbsp;&nbsp;&nbsp;type: &lt;tcp/http/udp&gt; # optional type of health check (will be implemented in future versions)
 &nbsp;&nbsp;&nbsp;&nbsp;httpPath: &lt;httpPath&gt; # optional if not type: http </code>
 </pre>
 <p>
@@ -1075,9 +1076,9 @@ List of volume Objects.
 
 **volume Object contains:**
 
-*   name of volume
-*   path mount Path inside container
-*   size volume size in GB to provision using environment defined storage class.
+*   name - volume name
+*   path - mount Path inside container
+*   size - volume size to provision using environment defined storage class.
 
 `
 Note:
@@ -1130,7 +1131,7 @@ name: logsDirectory
    </td>
    <td>string
    </td>
-   <td>2
+   <td>1Gi
    </td>
    <td><em>Optional</em>
 <p>
@@ -1138,7 +1139,7 @@ Size of volume to be provisioned
 <p>
 Makes use of environment tied kubernetes storage class to provision volume.
 <p>
-Eg: size: 1g
+Eg: size: 1Gi
    </td>
   </tr>
 </table>
@@ -1151,7 +1152,7 @@ Eg:
 volumes:
   - name: tomcat-logs
     path: /usr/local/content/tomcat/current/logs
-    size: 1g
+    size: 1Gi
 
   - name: data
     path: /usr/local/content/tomcat/current/webapps
@@ -1160,6 +1161,7 @@ volumes:
 ### agents
 
 > will be implemented in future versions.
+
 List of agent (aka sidecar) objects.
 
 ```yaml
@@ -1278,6 +1280,8 @@ Eg:
 
 ## Spec Template File
 
+> will be implemented in future versions
+
 For Off-the-Shelf (OTS) services as well as for commonly used configurations of known services, spec template files could be made available as a starting point. Once a spec template is downloaded for use, it can be extended to create a service spec (hspec) in order to override commonly specified configurations. 
 
 For example, a mysql spec template may include things like 3306 for ports, `/var/lib/mysql/` as a volume path, etc. Anyone extending this template to create their hspec may wish to override things like the password secret, etc.
@@ -1326,6 +1330,8 @@ Future versions may support:
 
 
 ## Profile Files 
+
+> will be implemented in future versions.
 
 In order to deploy a service into different environments (such as QA, Stage, UAT, etc.), it maybe necessary to override certain fields to customize as per that environment. This is supported by the use of profile files.
 

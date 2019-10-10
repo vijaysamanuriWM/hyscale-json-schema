@@ -1159,6 +1159,7 @@ volumes:
 
 ### agents
 
+> will be implemented in future versions.
 List of agent (aka sidecar) objects.
 
 ```yaml

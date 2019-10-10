@@ -130,6 +130,7 @@ To get the status of all the deployed services in an application , use the "get 
 **_-f `<serviceName>`.hspec_**
 
 HyScale Service Spec file where file name should be same as service name mentioned inside spec. This is the name with which service by default gets deployed. To know how to write service spec click [here](hyscale-spec-reference.md).
+
 **_-n `<nameSpace>`_**
 
 Kubernetes namespace where service is deployed. `namespace` acts like an isolation for your application services. Generally namespace is used for describing application environments (like QA, STAGE, UAT etc..). If namespace is not present, hyscale will create one with the given name provided kubeconfig permissions.

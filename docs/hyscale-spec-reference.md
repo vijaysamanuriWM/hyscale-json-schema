@@ -1069,14 +1069,14 @@ List of volume Objects.
   volumes:# optional can be inferred from docker inspection and default 2 GB + default sc
     - name: <volumeName1>
       path: <volumeMountPath>
-     [sizeInGB: <sizeInGB>]
+     [size: <size>]
 ```
 
 **volume Object contains:**
 
 *   name of volume
 *   path mount Path inside container
-*   sizeInGB volume size in GB to provision using environment defined storage class.
+*   size volume size in GB to provision using environment defined storage class.
 
 `
 Note:

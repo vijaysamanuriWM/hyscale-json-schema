@@ -149,7 +149,7 @@ Deploys the manifest into kubernetes cluster . The cluster details are read from
 *   The deployer also undeploys all the resources incase of undeploy service / undeploy app.
 *   Fetches the pod logs from the cluster and persists them as deployment logs, this ensures the deployment logs to be there even after the pod restarts incase of failures. The pod logs can be fetched at any point of time with the "_hyscalectl get service logs_" command which are then persisted in service.logs file.
 *   Pod logs can also be tailed with _`-t`_ option in `_hyscalectl get service logs_`.
-*   `_hyscalectl get service status_` responds to whether the service has been deployed , not deployed, running along with proper message of the action
+*   `_hyscalectl get service status_` responds to whether the service has been Running, Not Running ,Not Deployed along with proper message of the action
 
 ### Debugging:
 

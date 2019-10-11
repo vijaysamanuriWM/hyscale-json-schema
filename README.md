@@ -52,7 +52,7 @@ To deploy, invoke the hyscale deploy command:
 hyscale deploy service -f `<my-service.hspec.yaml>` -n `<my-namespace>` -a `<my-app-name>`
 
 To view the status of your deployment:
-hyscale get service status -s <my-service> -n <my-namespace> -a <my-app-name>
+hyscale get service status -s `<my-service>` -n `<my-namespace>` -a `<my-app-name>`
 
 To view logs:
 hyscale get service logs -s `<my-service>` -n `<my-namespace>` -a `<my-app-name>`

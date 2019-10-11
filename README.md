@@ -9,7 +9,7 @@ See documentation [here](docs/developer-guide.md).
 
 Open your terminal and enter the following:
 
-    $ curl -s https://get.hyscale.io | bash
+    $  curl -sSL http://get.hyscale.io | bash
 
 ## Limitations
 Works for linux environments

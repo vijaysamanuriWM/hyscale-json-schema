@@ -59,16 +59,3 @@ hyscale get service logs -s <my-service> -n <my-namespace> -a <my-app-name>
 
 For all possible commands, see the [command reference](docs/hyscale-commands-reference.md).
 
-## Future development
-
-Some interesting things for the future include…
-*  Enabling developer collaboration in deployments by integrating user identity in deployments and validating the deployments when collaborated with others.
-* Enhancements in troubleshooting deployment failures by providing more insights in the status command when deployments fails at kubernetes.
-* Introducing profiles for deploying to various environments ie when any of the service spec attributes change with respect to the environment ( like production needs more memory & cpu than developer environments ) will be handled with profiles . Service spec will be merged with profile to obtain the effective service spec for that deployment.
-* Service spec start off made easy with templates . Templates are mainly for standard services like (apache, elasticsearch, nginx, kafka, redis etc) which adds for reusability of services . Any customization can be added on top of templates which reduces the pain of writing the entire service spec.
-* Cluster management where deployments can be made to multiple clusters with the handle of deployment option.
-* Customized plugins for manifest generation, contributors can just add a plugin in manifest generation to satisfy the unsatisfied resources in the tool.
-* Enhancing troubleshooting control with agents which are deployed as a sidecar along with the primary service to help efficient debugging of the application’s service.
-* Handoff the load balancer from developer to kubernetes using ingress, developers need not worry about load balancing , configuring them etc , making it easy with kubernetes ingress.
-* Seamless Local deployments with minikube / Kind: Providing minikube & kind installers along with the tool so that user can try immediately some deployments to kubernetes with the tool.
-

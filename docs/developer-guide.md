@@ -35,8 +35,8 @@ Generates dockerfile from the given servicespec . The dockerfile generation is a
     * When user has a ready-made dockerfile ie. user provided dockerfile in the service spec.
     * When both dockerfile & buildSpec are not provided.
     * When buildSpec exist & if it has no artifacts , configureCommands,  runCommands, configScript, runScript. 
-*   Dockerfiles are generated at `<user.home>`/hyscale-ctl/apps/`<app_name>`/`<service_name>`/generated-files/dockerfiles/
-*   Assume (`<user.home>`/hyscale-ctl/apps/`<app_name>`/`<service_name>`/generated-files/dockerfiles/ ) as _Relative Docker Path_.
+*   Dockerfiles are generated at `<user.home>`/.hyscale/hyscale/apps/`<app_name>`/`<service_name>`/generated-files/dockerfiles/
+*   Assume (`<user.home>`/.hyscale/hyscale/apps/`<app_name>`/`<service_name>`/generated-files/dockerfiles/ ) as _Relative Docker Path_.
 *   Any supporting files referred in the buildSpec like artifacts, configuration script, run script are copied relative to the Dockerfile directory. . This is the action in Dockerfile Generation during the deploy command.
     *   Artifacts : Moved to _Relative Docker Path/_artifacts/`<Artifact-name>`/`<artifact>`
     *   Scripts: Moved(in case of ready-made scripts ) / Written (in case of commands)  to _Relative Docker Path_. These scripts are baked at /hyscale/init-scripts/ inside the container.
@@ -57,11 +57,11 @@ COPY <<artifact_1>>  <<<<artifact_1_destination>>
 
 COPY <<artifact_n>>  <<<<artifactn_n_destination>>
 
-COPY configure.sh hyscalectl/init-scripts/	##Copies configure commands as configure.sh
+COPY configure.sh hyscale/init-scripts/	##Copies configure commands as configure.sh
 
-COPY run.sh hyscalectl/init-scripts/		##Copies run commands as run.sh
+COPY run.sh hyscale/init-scripts/		##Copies run commands as run.sh
 
-RUN hyscalectl/init-scripts/configure.sh	##Run configure commands inside image
+RUN hyscale/init-scripts/configure.sh	##Run configure commands inside image
 
 CMD /bin/bash /init-scripts/run.sh		##Execute run commands on container startup
 ```
@@ -85,11 +85,11 @@ _**Push Image**_ : Once the image is built / skipped in case of stack image , th
 #### Key Points:
 
 *   Docker image is built using `docker build` command in the directory “image.dockerfile.path” or _Relative Docker Path_.
-*   Build logs are written to `<user.home>/hyscale-ctl/apps/<app_name>/<service_name>/logs/build.log`
+*   Build logs are written to `<user.home>/.hyscale/hyscale/apps/<app_name>/<service_name>/logs/build.log`
 *   Image is built and tagged as `hyscale.io/<app_name>/<service_name>:<tag>`
 *   During push, tool automatically does a `docker login` again to verify the credentials are correct. If the login fails , push fails and deployment is exited. 
 *   After successful login, push command is executed using `docker push` command.
-*   Push logs are written to `<user.home>/hyscale-ctl/apps/<app_name>/<service_name>/logs/push.log`
+*   Push logs are written to `<user.home>/.hyscale/hyscale/apps/<app_name>/<service_name>/logs/push.log`
 
 ### Manifest Generator Module
 
@@ -103,7 +103,7 @@ Generates the kube manifest from the given service spec. Manifest generation is 
 *   All the snippets are merged into manifests using a tree insertion treating each snippet to be node to the manifest tree .
 *   Each plugin can insert multiple snippets into a set of manifests, which results in injecting multiple nodes to the tree.
 *   If a snippet injection fails the rest of the plugins will still be processed and injected . Plugin order is decided by the plugins.txt file the generator-services module. 
-*   After processing all the plugins, each manifest of a specific kind & name are written to a file at `<user.home>/hyscale-ctl/apps/<app_name>/<service_name>/generated-files/manifests/` . The name of the manifest file is determined by the kind & name, while the name of the manifest resource is normalized(`<app_name>-<service_name>`).
+*   After processing all the plugins, each manifest of a specific kind & name are written to a file at `<user.home>/.hyscale/hyscale-ctl/apps/<app_name>/<service_name>/generated-files/manifests/` . The name of the manifest file is determined by the kind & name, while the name of the manifest resource is normalized(`<app_name>-<service_name>`).
 *   Each service might result in the set of manifest resources : ConfigMap for _props_, Secrets for _secrets_, ImagePullSecret for _image-registry-credentials_, Deployment / Statefulset ,Service , Pods, PVC. 
 *   Tool creates a statefulset if and only if volumes are present in the servicespec else deployment is created.
 
@@ -111,7 +111,7 @@ Generates the kube manifest from the given service spec. Manifest generation is 
 
 *   hyscale.io/appName : App Name from the command line, `-a <<appName>>` 
 *   hyscale.io/serviceName: service name from .hspec, `-f <<.hspec>>`
-*   hyscale.io/envName : default _`<ns>-dev`_
+*   hyscale.io/envName : `<<app>>-dev`_
 
 #### Manifest Plugins
 
@@ -153,6 +153,6 @@ Deploys the manifest into kubernetes cluster . The cluster details are read from
 
 ### Debugging:
 
-*   In case the service deployment fails at any stage, the respective stage logs can be found at `<user.home>`/hyscale-ctl/apps/`<app_name>`/`<service_name>`/logs/ to debug the cause of failure.
+*   In case the service deployment fails at any stage, the respective stage logs can be found at `<user.home>`/.hyscale/hyscale/apps/`<app_name>`/`<service_name>`/logs/ to debug the cause of failure.
 *   hyscalectl get service status -s `<service_name>` -a `<app_name>` -n `<namespace>` the message field gives the reason in case failed pods.
 *   User can check for pod logs using hyscalectl get service logs -s `<service_name>` -a `<app_name>` -n `<namespace>` for troubleshooting.                                            

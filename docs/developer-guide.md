@@ -133,6 +133,7 @@ Generates the kube manifest from the given service spec. Manifest generation is 
 *   ResourceLimitsHandler: Handles the memory & cpu limits of statefulset/deployment from "_memory_" in servicespec
 *   VolumeTemplatesHandler : Creates volumeClaimTemplates from the declared volumes of the given  servicespec. Request to create the volume dynamically.
 *   ServiceTypeHandler : Handles the exposure of the service , whether the service is an internal service ( exposed only within the cluster for the communication of other services ) or external ( to be accessed publicly )
+* ServiceSpecAnnotationHandler : Adds the `_hyscale.io/service-spec_` to preserve the service spec from which it has been created.
 
 ###  Deployer Module
 

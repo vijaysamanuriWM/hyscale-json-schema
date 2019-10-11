@@ -48,15 +48,13 @@ image:
     dockerfile:
         path: <build-context-path>               # default is ./
         dockerfilePath: <dockerfile-path>        # default is <path>/Dockerfile
-        target: <stage-name>                     # default is final stage 
         args:
             <key1>:<value1> 
     buildSpec:
        stackImage: [<pull-registry-url>/]<stack-image-name>[:<stack-image-tag>]
        artifacts:
            - name: <artifact-name>
-             provider: [http|ssh|local]          # default is local
-             source: <url> #       http://xyz.com/abc/{{ buildNumber }}/login.war            # can have substitutions with place holders 
+             source: <relative source path>      # eg: /login/target/{{ buildNumber }}/login.war
              destination: <destination-in-container>
 
        configCommandsScript: <config-commands-script>    # output of this script is baked inside image
@@ -68,11 +66,11 @@ image:
          [<config-commandN>]
 
        runCommandsScript: <run-commands-script>          # runs on container start
-                                                 # can refer props as $prop-name
+                                          
                                                  # CMD in dockerfile
        runCommands: |-
          # Executes while container start
-         <run-command1>
+        [<run-command1>]
         [<run-command2>]
          .
          .
@@ -80,10 +78,12 @@ image:
 
 startCommand: <start-command with args>          # command+args in k8s yaml, overrides ENTRYPOINT+CMD
 replicas: <replica-count>                        # default is 1
-memory: [<min-memory>-]<max-memory> 
-cpu: [<min-cpu>-]<max-cpu>
+memory: [<min-memory>-]<max-memory>              # Supported units are
+	 					 # 1. Ki|Mi|Gi|Ti|Pi|Ei as power of two equivalents
+                                                 # 2. n|u|m|k|M|G|T|P|E as plain integers
+cpu: [<min-cpu>-]<max-cpu>			 # Supported units are `m` or `none`
 
-external: <true/false>
+external: <true/false>				 # default is false
 ports:
     - port: <port-number1>[/<port-type>]         # default type is tcp
       healthCheck:
@@ -94,8 +94,11 @@ ports:
 volumes:                        
     - name: <volume-name1>
       path: <volume-mount-path>
-     [size: <size>]             # default size is 1G
-     [storageClass: <storageClass>]
+     [size: <size>]             		 # default size is 1Gi 
+     						 # Supported units are
+	 					 # 1. Ki|Mi|Gi|Ti|Pi|Ei as power of two equivalents
+                                                 # 2. n|u|m|k|M|G|T|P|E as plain integers
+     storageClass: <storageClass>
 
 propsVolumePath: <volume-path-of-configmap> 
 props: 
@@ -104,10 +107,11 @@ props:
    .
    [<keyN>: <valueN>]
 
-secrets:
-    - <secret1>
-    .
-   [- <secretN>]
+secrets:		 	# Secrets accept both list of keys & key value pairs 
+    - <secret1>			# Incase of list, secret should be created prior as <appname>-<servicename>
+    - <secret2>			# - <key1> : <value1>
+    .   			# - <key2> : <value2>
+   - <secretN>			# - <keyN> : <valueN>
 
 secretsVolumePath: <volume-path-of-secrets>
 

@@ -1,37 +1,71 @@
-# Hyscale resources JSON Schemas
+# HyScale
+### The k8s Deployment Tool Command Line Interface
 
-This repository contains a set of json schemas for Hyscale Resources. For each specified Hyscale versions you can find json schemas for hyscale resources.
+HyScale is an app deployment tool for deploying apps to Kubernetes quickly without having to learn k8s concepts or write & maintain k8s manifests. It provides a convenient CLI for deploying, viewing status, logs and undeploying. It includes a declarative service spec parser for k8s abstraction and the automatic generation of k8s manifests & docker files.
 
-<a href="https://push-to.cfapps.io?repo=https%3A%2F%2Fgithub.com%2FvijaysamanuriWM%2Fhyscale-json-schema.git">
-    <img src="https://push-to.cfapps.io/ui/assets/images/Push-to-Pivotal-Light-with-Shadow.svg" width="180" alt="Push" align="center">
-</a>
+See documentation [here](docs/https://hyscale.github.).
 
-## Example
+## Installation
 
-Here are the links to the `service-spec` schemas for Hyscale:
+Open your terminal and enter the following:
 
-* [v1.0.0-local/service-spec.json](v1.0.0-local/service-spec.json)
+    $ curl -s https://get.hyscale.io | bash
 
-## Usage
+Currently tested on Linux only.
 
-There are lots of use cases for these schemas, they are primarily useful as a
-low-level part of other developer workflow tools. But at a most basic level you can
-validate a Hyscale definition.
+## Deploying to k8s
 
-Here is a very simply example using the Python [jsonschema client](https://github.com/Julian/jsonschema) and an invalid deployment file:
+### Before you start
 
+In order to deploy your service to k8s, you must have the kube config file with the cluster token placed at $HOME/.kube/config and your image registry credentials at $HOME/.docker/config.json
+
+### Preparing your first service spec
+
+Here is a small service spec that works for a basic java app. For all possible options, see the [spec reference](docs/hyscale-spec-reference.md).
+
+```yaml
+NAME: my-service
+Image:
+    registry: registry.hub.docker.com/library
+name: tomcat
+ 
+volumes:
+     -path: /usr/local/tomcat
+      size: 1Gi
+ 
+PORTS:
+    - NAME: tomcat-port
+      PORT: 8080/tcp
+      HEALTH_CHECK:
+          TYPE: tcp
 ```
-$ jsonschema -F "{error.message}" -i tests/hrms-frontend.json v1.0.0-local/service-spec.json
 
-```
+### Deploy the service
 
-## Uses:
+To deploy, invoke the hyscale deploy command:
+hyscale deploy service -f <my-service-spec.yaml> -n <my-namespace> -a <my-app-name>
+
+To view the status of your deployment:
+hyscale get service status -s <my-service-name> -n <my-namespace> -a <my-app-name>
+
+To view logs:
+hyscale get service logs -s <my-service-name> -n <my-namespace> -a <my-app-name>
+
+For all possible commands, see the [command reference](docs/hyscale-commands-reference.md).
+
+### Local compilation
+
+To compile hyscale from source, run the following commands:
+
+    $ mvn clean install
 
 
-* Testing tools to show your Hyscale service spec files are valid,
-  and against which versions of Hyscale.
-* Integration with code editors, for instance via something like [Schema
-  Store](http://schemastore.org/json/)
-* Visual tools for crafting Hyscale Configuration files.
-* Tools to show changes between Hyscale versions
+## Future development
+
+Some interesting possiblities for the future include…
+1)
+2)
+3)
+
+These are spec'ed out here within HEPs (HyScale Enhancement Proposals) and a full list can be found [here](https://hyscale.github.com/heps).
 

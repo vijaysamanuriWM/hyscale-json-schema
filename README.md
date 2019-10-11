@@ -11,12 +11,9 @@ Open your terminal and enter the following:
 
     $  curl -sSL http://get.hyscale.io | bash
 
-## Limitations
-Works for linux environments
-
 ## Prerequisites
-In order to deploy your service to k8s, you must have the following configurations and installations in place
-1. Docker 18.09.x and above versions  
+In order to deploy your service to k8s, you must have the following configurations and installations in place on your machine from which you wish to deploy your application.
+1. Docker 18.09.x or above
 2. kube config file with the cluster token placed at $HOME/.kube/config
 3. Image registry credentials at $HOME/.docker/config.json (make sure `config.json` has the latest auth creds by logging into the image registry using `docker login` prior to deployment)
 
@@ -59,3 +56,4 @@ hyscale get service logs -s `<my-service>` -n `<my-namespace>` -a `<my-app-name>
 
 For all possible commands, see the [command reference](docs/hyscale-commands-reference.md).
 
+These commands have been tested on CentOS, Ubuntu and Debian Linux

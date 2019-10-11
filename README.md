@@ -14,7 +14,7 @@ Open your terminal and enter the following:
 ## Limitations
 Works for linux environments
 
-##Prerequisites
+## Prerequisites
 In order to deploy your service to k8s, you must have the following configurations and installations in place
 1. Docker 18.09.x and above versions  
 2. kube config file with the cluster token placed at $HOME/.kube/config

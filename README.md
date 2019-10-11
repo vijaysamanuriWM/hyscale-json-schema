@@ -17,6 +17,10 @@ In order to deploy your service to k8s, you must have the following configuratio
 2. kube config file with the cluster token placed at $HOME/.kube/config
 3. Image registry credentials at $HOME/.docker/config.json (make sure `config.json` has the latest auth creds by logging into the image registry using `docker login` prior to deployment)
 
+## DEMO
+
+![demo](docs/images/hyscale-demo-microservices.gif)
+
 ## Deploying to k8s
 ### Preparing your first service spec
 

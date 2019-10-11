@@ -1,0 +1,181 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /tmp/hyscale-json-schema/docs/images
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 143
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 42
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Terminalizer
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 1630
+    content: "\e]0;vijays@PRINHYLTPHP0855:/tmp/hyscale-json-schema/docs/images\a\e]7;file://PRINHYLTPHP0855/tmp/hyscale-json-schema/docs/images\a"
+  - delay: 77
+    content: '/tmp/hyscale-json-schema/docs/images$: '
+  - delay: 287
+    content: H
+  - delay: 182
+    content: i
+  - delay: 264
+    content: e
+  - delay: 346
+    content: "\b\e[K"
+  - delay: 122
+    content: ' '
+  - delay: 194
+    content: t
+  - delay: 105
+    content: h
+  - delay: 140
+    content: i
+  - delay: 235
+    content: s
+  - delay: 136
+    content: ' '
+  - delay: 138
+    content: i
+  - delay: 132
+    content: s
+  - delay: 106
+    content: ' '
+  - delay: 139
+    content: a
+  - delay: 112
+    content: ' '
+  - delay: 225
+    content: t
+  - delay: 112
+    content: e
+  - delay: 183
+    content: s
+  - delay: 101
+    content: t
+  - delay: 194
+    content: ' '
+  - delay: 264
+    content: "\r\n"
+  - delay: 365
+    content: "Hi: command not found\r\n"
+  - delay: 11
+    content: "\e]0;vijays@PRINHYLTPHP0855:/tmp/hyscale-json-schema/docs/images\a\e]7;file://PRINHYLTPHP0855/tmp/hyscale-json-schema/docs/images\a/tmp/hyscale-json-schema/docs/images$: "
+  - delay: 988
+    content: l
+  - delay: 152
+    content: o
+  - delay: 112
+    content: g
+  - delay: 155
+    content: i
+  - delay: 773
+    content: "\b\e[K"
+  - delay: 224
+    content: o
+  - delay: 142
+    content: u
+  - delay: 132
+    content: t
+  - delay: 164
+    content: "\r\n"
